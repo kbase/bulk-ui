@@ -1,0 +1,47 @@
+
+
+
+<breadcrumbs>
+    <span *ngFor="#folder of pathList; #i = index">
+        <a *ngIf="i < pathList.length-1"
+           [routerLink]="['FileTable', {'path': pathList.slice(0,i+1).join('/')}]">
+            {{folder}}
+        </a>
+        {{i == pathList.length-1 ? folder : ''}}
+        {{i < pathList.length-1 ? '/' : ''}}
+    </span>
+</breadcrumbs>
+
+
+<table style="width: 100%;">
+    <thead>
+        <tr>
+            <th>
+                <md-checkbox *ngIf="files"
+                             [checked]="allChecked"
+                             (click)="toggleCheckAll(event)"
+                             aria-label="Select all">
+                </md-checkbox>
+            </th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Mod Time</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="#file of files">
+            <td>
+                <md-checkbox [checked]="file.checked"
+                             (change)="file.checked = $event">
+                </md-checkbox>
+            </td>
+            <td>{{file.name}}</td>
+            <td>{{readableSize(file.size)}}</td>
+            <td>{{relativeTime(file.mtime)}}</td>
+            <td>no type found</td>
+        </tr>
+    </tbody>
+
+
+</table>

@@ -1,0 +1,84 @@
+/**
+ *  Master Styles
+ */
+
+body {
+    margin: 0;
+    background-color: #f7f7f7;
+}
+
+.content {
+    height: 100%;
+    padding: 100px 10px 10 10px;
+}
+
+card {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #e9e9e9;
+    display: block;
+}
+
+column {
+    width: 100%;
+}
+
+/* links */
+
+a {
+    color: #0088cc;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2a6496;
+}
+
+
+
+/**
+ *  Generic Classes
+ */
+
+/* positioning */
+
+.no-margin {
+    margin: 0;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.vertical-center {
+    vertical-align: middle;
+}
+
+/* lists */
+ul.list-inline {
+    display: inline;
+}
+ul.list-unstyled {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* icons */
+i.icon-small {
+    font-size: .9em;
+}
+
+/* color */
+.text-muted {
+    color: #aaa;
+}
+
+/* everywhere else */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}

@@ -1,0 +1,28 @@
+
+
+.side-nav {
+    width: 22%;
+}
+
+.quota {
+    width: 100%;
+}
+
+.file-table-container {
+    width: 75%;
+}
+
+
+.file-tree-container {
+    position: relative;
+    width: 100%;
+
+}
+
+.file-tree {
+    margin-top: 30px;
+
+    left: -30px;
+
+    width: 100%;
+}

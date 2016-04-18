@@ -1,0 +1,36 @@
+
+
+<ul class="group">
+    <li *ngFor="#folder of folders">
+        <a class="file"
+            (click)="selectFolder($event, folder)"
+            [routerLink]="['FileTable', {'path': folder.path}]"
+            [class.selected-folder]="selectedPath==folder.path">
+
+            <spacer *ngIf="!folder.folderCount"></spacer>
+
+            <i *ngIf="folder.folderCount && !folder.expanded"
+                (click)="expandFolder($event, folder)"
+                class="material-icons icon-expand">
+                add_box
+            </i>
+
+            <i *ngIf="folder.expanded"
+                (click)="expandFolder($event, folder)"
+                class="material-icons icon-expand">
+                indeterminate_check_box
+            </i>
+
+            <i class="material-icons icon-folder">
+                folder_open
+            </i>
+            {{folder.name}}
+            <small *ngIf="folder.nlink == 0" class="text-muted">(empty)</small>
+        </a>
+
+        <file-tree *ngIf="folder.expanded" [folders]="folder.folders" [onSelect]="onSelect"></file-tree>
+    </li>
+</ul>
+
+
+<!-- (click)="selectFolder($event, folder)" -->
