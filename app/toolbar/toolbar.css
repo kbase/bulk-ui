@@ -20,9 +20,8 @@ logo {
 .app-name {
     color: #333;
     font-size: 1.4em;
-    margin: 22px 0 0px 40px;
+    margin: 22px 0 0 40px;
     float: left;
-
 }
 
 nav > .right-side-nav {

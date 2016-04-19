@@ -1,11 +1,10 @@
 import { Injectable } from 'angular2/core';
 import { Http, Response } from 'angular2/http';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
 
-import {Subject}    from 'rxjs/Subject';
+import { Subject }    from 'rxjs/Subject';
 
 import { Folder } from './folder';
 
