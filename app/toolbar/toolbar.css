@@ -1,27 +1,32 @@
 
 toolbar {
     position: fixed;
+    height: 65px;
     background-color: #fff;
     border-bottom: 5px solid #E0E0E0;
     color: #48B2C3;
-    margin: 0px;
-    padding: 20px 10px;
+    padding: 0px 10px;
     width: 100%;
     z-index: 5000;
 }
 
 logo {
-    margin: 2px 0 0 15px;
+    margin: 10px 0 0 15px;
     font-size: 1.3em;
     float: left;
+    display: inline;
 }
 
-logo > .app-name {
+.app-name {
     color: #333;
+    font-size: 1.4em;
+    margin: 22px 0 0px 40px;
+    float: left;
+
 }
 
 nav > .right-side-nav {
     float:right;
-    margin: 5px 30px 0 0;
+    margin: 25px 30px;
 }
 

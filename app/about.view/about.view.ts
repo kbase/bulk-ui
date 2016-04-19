@@ -6,11 +6,8 @@ import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
   //selector: '',
   templateUrl: 'app/about.view/about.view.html',
   styleUrls: ['app/about.view/about.view.css'],
-  directives: [
-  ],
-  providers: [
-
-  ]
+  directives: [],
+  providers: []
 })
 
 
