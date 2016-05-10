@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
+
 /**
  *  Master Styles
  */
@@ -23,8 +26,6 @@ column {
     width: 100%;
 }
 
-/* links */
-
 a {
     color: #0088cc;
     text-decoration: none;
@@ -35,28 +36,22 @@ a:hover {
 }
 
 
-
 /**
  *  Generic Classes
  */
 
 /* positioning */
 
-.no-margin {
-    margin: 0;
+.no-margin { margin: 0; }
+.pull-left { float: left; }
+.pull-right { float: right; }
+.vertical-center { vertical-align: middle; }
+
+.button-icon {
+    position: relative;
+    top: 6px;
 }
 
-.pull-left {
-    float: left;
-}
-
-.pull-right {
-    float: right;
-}
-
-.vertical-center {
-    vertical-align: middle;
-}
 
 /* lists */
 ul.list-inline {
@@ -68,17 +63,18 @@ ul.list-unstyled {
     list-style: none;
 }
 
+
 /* icons */
-i.icon-small {
-    font-size: .9em;
-}
+i.icon-small { font-size: .9em; }
 
 /* color */
-.text-muted {
-    color: #aaa;
-}
+.text-muted { color: #aaa; }
+
+
+
 
 /* everywhere else */
 * {
-  font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
+    font-family: 'Roboto', sans-serif;
 }

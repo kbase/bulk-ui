@@ -1,0 +1,17 @@
+
+.sorter {
+    position: relative;
+    width: 100%;
+}
+
+i.asc::after {
+    content: "arrow_drop_down";
+    position: absolute;
+    top: -2px;
+}
+
+i.desc::after {
+    content: "arrow_drop_up";
+    position: absolute;
+    top: -2px;
+}

@@ -1,7 +1,7 @@
 
 
 <ul class="group">
-    <li *ngFor="#folder of folders">
+    <li *ngFor="let folder of folders">
         <a class="file"
             (click)="selectFolder($event, folder)"
             [routerLink]="['FileTable', {'path': folder.path}]"

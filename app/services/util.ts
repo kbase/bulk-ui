@@ -53,11 +53,13 @@ export function Util() {
 
     // interesting solution from http://stackoverflow.com/questions
     // /15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript
-    this.readableSize = function(bytes) {
+    this.readableSize = function(bytes: number) {
        var units = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-       if (bytes == 0) return '0 Bytes';
-       var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-       return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + units[i];
+       return 0;
+       //if (bytes === 0) return '0 bytes';
+
+       //var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+       //return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + units[i];
     };
 
 }

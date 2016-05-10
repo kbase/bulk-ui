@@ -1,5 +1,5 @@
-import { Component, OnInit, Input} from 'angular2/core';
-import { Router, RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component, OnInit, Input} from '@angular/core';
+import { Router, RouteParams, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 import { FtpService } from '../services/ftp.service';
 import { Folder } from '../services/folder';
@@ -9,11 +9,11 @@ import { Folder } from '../services/folder';
   templateUrl: 'app/file-tree/file-tree.html',
   styleUrls: ['app/file-tree/file-tree.css'],
   directives: [
-    FileTreeComponent,  //rescursive
-    ROUTER_DIRECTIVES
+    ROUTER_DIRECTIVES,
+    FileTreeComponent  //rescursive
   ],
   providers: [
-      FtpService
+
   ]
 })
 
@@ -39,7 +39,7 @@ export class FileTreeComponent implements OnInit {
 
         if (folder.expanded) {
             this._ftpService.getFolders(folder.path)
-                .subscribe(newFolders => folder.folders = newFolders);
+                .subscribe(newFolders => folder.folders = newFolders)
         } else {
             folder.folders = [];
         }
