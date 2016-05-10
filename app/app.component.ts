@@ -1,10 +1,17 @@
-import { Component } from 'angular2/core';
-import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component } from '@angular/core';
+import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 import { SelectorView } from './selector.view/selector.view';
+import { EditMetaView } from './edit-meta.view/edit-meta.view';
 import { AboutView } from './about.view/about.view';
 import { ToolbarComponent } from './toolbar/toolbar';
 import { FileTableComponent } from './file-table/file-table';
+
+
+// singleton
+import { HTTP_PROVIDERS }    from '@angular/http';
+import { FtpService } from './services/ftp.service';
+
 
 
 @Component({
@@ -21,6 +28,8 @@ import { FileTableComponent } from './file-table/file-table';
         ToolbarComponent
     ],
     providers: [
+        HTTP_PROVIDERS,
+        FtpService
     ]
 })
 
@@ -34,9 +43,19 @@ import { FileTableComponent } from './file-table/file-table';
     path: '/about',
     name: 'About',
     component: AboutView,
+  },{
+    path:'/edit-meta',
+    name: 'EditMeta',
+    component: EditMetaView
   }
 ])
 
-export class AppComponent { }
+export class AppComponent {
+
+    constructor(public ftpService: FtpService) {
+
+    }
+
+}
 
 

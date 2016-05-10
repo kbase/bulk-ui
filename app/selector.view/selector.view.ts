@@ -1,9 +1,9 @@
-import { Component, OnInit} from 'angular2/core';
-import { HTTP_PROVIDERS }    from 'angular2/http';
-import { RouteParams, RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component, OnInit} from '@angular/core';
+import { RouteParams, RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 import { FileTreeComponent } from '../file-tree/file-tree';
 import { FileTableComponent } from '../file-table/file-table';
+
 import { FtpService } from '../services/ftp.service';
 
 @Component({
@@ -16,8 +16,6 @@ import { FtpService } from '../services/ftp.service';
       ROUTER_DIRECTIVES
   ],
   providers: [
-    FtpService,
-    HTTP_PROVIDERS
   ]
 })
 

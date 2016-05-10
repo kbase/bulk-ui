@@ -5,10 +5,14 @@ table {
     border-collapse: collapse;
 }
 
-table > thead > tr > th{
+table > thead > tr > th {
     text-align: left;
     padding: 9px;
     border-bottom: 2px solid #ddd;
+}
+
+table > thead > tr > th:hover {
+    cursor: pointer;
 }
 
 table > tbody > tr:not(:last-child) {
@@ -18,4 +22,5 @@ table > tbody > tr:not(:last-child) {
 table > tbody > tr > td {
     padding: 10px;
 }
+
 

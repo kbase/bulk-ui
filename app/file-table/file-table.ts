@@ -1,7 +1,11 @@
 
-import { Component, OnInit} from 'angular2/core';
-import { RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
-import { MdCheckbox } from 'node_modules/@angular2-material/checkbox/checkbox.js';
+import { Component, OnInit} from '@angular/core';
+import { RouteParams, RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import { MdCheckbox } from '@angular2-material/checkbox';
+import { MdButton } from '@angular2-material/button';
+
+import { DefaultSorter } from '../grid/defaultSorter';
+import { DataTable } from '../grid/dataTable';
 
 
 import { FtpService } from '../services/ftp.service';
@@ -13,49 +17,80 @@ import { Util } from '../services/util';
   templateUrl: 'app/file-table/file-table.html',
   styleUrls: ['app/file-table/file-table.css'],
   directives: [
+    ROUTER_DIRECTIVES,
     MdCheckbox,
-    ROUTER_DIRECTIVES
+    MdButton,
+
+    DataTable,
+    DefaultSorter
   ],
   providers: [
-    FtpService,
+    DataTable
   ]
 })
 
 export class FileTableComponent implements OnInit {
+    selectedPath: string;                  // selected path from routeParams
+    files;                                 // list of file meta
+    pathList = [];                         // list of folder names
 
-    private selectedPath;
-    private files;
-    private pathList;
+    allChecked: boolean = false;           // wether or not all items are checked
 
-    private allChecked;
+    selectedFiles;
 
-    private util = new Util();
-    private relativeTime = this.util.relativeTime;
-    private readableSize = this.util.readableSize;
+    util = new Util();
+    relativeTime = this.util.relativeTime; // use pipes
+    readableSize = this.util.readableSize; // use pipes
+
+    //sorter = new Sorter();
+    sortedCol: string;
 
     constructor(
         private _routeParams: RouteParams,
-        private _ftpService: FtpService) {
+        private _ftp: FtpService) {
 
-        this.selectedPath = this._routeParams.get('path');
-        this.pathList = decodeURI(this.selectedPath).split('/');
+        this.selectedPath = decodeURI(_routeParams.get('path') );
+        this.pathList = this.selectedPath.split('/');
+
+        this.selectedFiles = _ftp.selectedFiles;
      }
 
     ngOnInit() {
-        this._ftpService.getFiles(this.selectedPath)
-            .subscribe(files => this.files = files)
+        console.log('path', this.selectedPath)
+        if (this.selectedPath in this._ftp.files)
+            this.files = this._ftp.files[this.selectedPath;
+        else
+            this._ftp
+                .getFiles(this.selectedPath)
+                .subscribe(files => {
+                    this.files = files
+                })
     }
+
+    toggleItem(checked, file) {
+        file.checked = checked;
+
+        if (checked == true)
+            this._ftp.selectFile(file);
+        else
+            this.selectedFiles = this._ftp.unselectFile(file);
+    }
+
 
     toggleCheckAll(event) {
-        let files = this.files;
+        if (this.allChecked) {
+            this.files.forEach(file => file.checked = false);
+            //this._ftp.unselectAllFiles();
+        }
 
-        if (!this.allChecked)
-            files.forEach(file => file.checked = true);
-        else
-            files.forEach(file => file.checked = false);
-
-        this.allChecked =! this.allChecked;
+        this.allChecked = !this.allChecked;
     }
 
+    /*
+    sort(key) {
+        console.log('sorting')
+        this.sorter.sort(key, this.files);
+        this.sortedCol = key;
+    }*/
 
 }

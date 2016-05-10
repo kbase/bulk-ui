@@ -1,8 +1,11 @@
-import { Injectable } from 'angular2/core';
-import { Http, Response } from 'angular2/http';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
+//import 'rxjs/Rx';
 
 import { Subject }    from 'rxjs/Subject';
 
@@ -16,21 +19,19 @@ import { Folder } from './folder';
 @Injectable()
 
 export class FtpService {
-    //public folders;
-    public files;
+    ftpUrl = 'http://0.0.0.0:3000/v0/list';
 
-    public selectedFolder: Folder = {
+    public selectedFiles = []; // files selected in UI
+
+    selectedFolder: Folder = {
         name: 'www',
         path: '/www'
     }
 
-    public selectedPath = new Subject<string>();
+    files = {};  // files organized by path
 
-    // Observable string streams
+    selectedPath = new Subject<string>();
     selectedPath$ = this.selectedPath.asObservable();
-
-
-    private ftpUrl = 'http://0.0.0.0:3000/v0/list';
 
     constructor(private http: Http) {}
 
@@ -48,12 +49,13 @@ export class FtpService {
         //else return Promise.resolve(Folders);
     }
 
-
+    // get files and cache
     getFiles(path?: string) {
         path = path ? path : '/www';
         return this.http.get(this.ftpUrl+path+'?type=file')
                         .map(res => res.json())
-                        .do(data => console.log(data))
+                        .do(files => this.files[path] = files)
+                        .do(files => console.log(files))
                         .catch(this.handleError);
     }
 
@@ -71,11 +73,26 @@ export class FtpService {
         return this.selectedPath;
     }
 
+
+    selectFile(file) {
+        this.selectedFiles.push(file);
+    }
+
+    unselectFile(file) {
+        this.selectedFiles = this.selectedFiles.filter(existingFile => {
+            if (existingFile.path != file.path) return true;
+        })
+
+        return this.selectedFiles;
+
+    }
+
+
     private handleError (error: Response) {
-        // in a real world app, we may send the error to some remote logging infrastructure
-        // instead of just logging it to the console
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }
+
+
 
 }
