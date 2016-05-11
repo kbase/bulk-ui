@@ -1,9 +1,6 @@
 
 
 
-
-
-
 <breadcrumbs>
     <span *ngFor="let folder of pathList; let i = index">
         <a *ngIf="i < pathList.length-1"
@@ -72,21 +69,6 @@
     </span>
 </table>
 
+<md-progress-circle *ngIf="!files" mode="indeterminate"></md-progress-circle>
 
 
-
-
-<!--
-
-            <th sortable [rows]="files" name="name" label="Name">asdfasdf</th>
-            <th sortable="desc" [rows]="files" name="size" label="Size"></th>
-            <th sortable [rows]="files" name="mtime" label="Mod Time"></th>
-            <th></th>
-
-                <th sortable={{sortedCol}} name="Name" (click)="sort('name')">asdfasdf</th>
-            <th sortable={{sortedCol}} name="Size" (click)="sort('size')"></th>
-            <th sortable={{sortedCol}} name="Mod Time" (click)="sort('mtime')"></th>
-            <th sortable={{sortedCol}} name="Type" (click)="sort('type')"></th>
-
-            -->
-<!--<grid [rows]="people" [columns]="columns"></grid>-->

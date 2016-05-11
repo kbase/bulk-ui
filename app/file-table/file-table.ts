@@ -1,8 +1,10 @@
 
 import { Component, OnInit} from '@angular/core';
 import { RouteParams, RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+
 import { MdCheckbox } from '@angular2-material/checkbox';
 import { MdButton } from '@angular2-material/button';
+import { MdProgressCircle } from '@angular2-material/progress-circle';
 
 import { DefaultSorter } from '../grid/defaultSorter';
 import { DataTable } from '../grid/dataTable';
@@ -20,6 +22,7 @@ import { Util } from '../services/util';
     ROUTER_DIRECTIVES,
     MdCheckbox,
     MdButton,
+    MdProgressCircle,
 
     DataTable,
     DefaultSorter

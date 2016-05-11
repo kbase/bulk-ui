@@ -71,7 +71,13 @@ i.icon-small { font-size: .9em; }
 .text-muted { color: #aaa; }
 
 
+/**
+ *  NG Material specific things
+ */
 
+ md-progress-circle {
+     width: 40px !important;
+ }
 
 /* everywhere else */
 * {

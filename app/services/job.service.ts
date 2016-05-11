@@ -5,8 +5,6 @@ import {Observable}     from 'rxjs/Observable';
 
 import { KBaseRpc } from './kbase-rpc.service';
 
-//import { token } from '../dev-user-token'
-
 @Injectable()
 export class JobService {
 
