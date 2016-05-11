@@ -19,19 +19,17 @@ export class EditMetaView implements OnInit {
 
     errorMessage;
 
-    constructor(private _ftpService : FtpService,
-                private _jobService : JobService) {
+    constructor(
+        private _ftpService : FtpService,
+        private _jobService : JobService) {
+
         this.files = this._ftpService.selectedFiles;
         console.log('the files', this.files)
     }
 
 
-
     ngOnInit() {
-
         console.log('selected files', this.files)
-
-
         this._jobService.runJob()
             .subscribe(
                 res => {

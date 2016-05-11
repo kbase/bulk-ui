@@ -3,41 +3,47 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import {Observable}     from 'rxjs/Observable';
 
-import { token } from '../dev-user-token'
+import { KBaseRpc } from './kbase-rpc.service';
+
+//import { token } from '../dev-user-token'
 
 @Injectable()
 export class JobService {
-    private _njsUrl = 'https://kbase.us/services/njs_wrapper';  // URL to web api
 
-    constructor(private http: Http) {
-
-    }
+    constructor(private rpc: KBaseRpc) {}
 
     runJob() {
-        console.log('in run job', token)
+        let params = {
+            steps: [{
+                service: {
+                    method_name: "filter_contigs",
+                    service_name: "ContigFilterPython",
+                    service_url: "",
+                    service_version: "295f0d2aa5586c8a0478304a4e70ff952e124532"
+                },
+                script: {
+                    method_name: "",
+                    service_name: "",
+                    has_files: 0
+                },
+                method_spec_id: "ContigFilterPython/filter_contigs",
+                input_values: [{
+                    contigset_id: "Rhodobacter_CACIA_14H1_contigs",
+                    min_length: "123",
+                    workspace: "rsutormin:1452124397525"
+                }],
+                step_id: "ContigFilterPython/filter_contigs",
+                type: "service",
+                is_long_running: 1
+            }],
+            name: "App wrapper for method ContigFilterPython/filter_contigs"
+        }
 
-        let headers = new Headers({ 'Authorization': token });
-        let options = new RequestOptions({ headers: headers });
-
-        let body = JSON.stringify({
-            version: "1.1",
-            method: 'NarrativeJobService.run_app',
-            id: String(Math.random()).slice(2),
-            params: [{name: 'genbank_transform', steps: [{script_method: 'genbank_to_genome'}] }]
-        })
-
-        return this.http.post(this._njsUrl, body, options)
-            .map(res => res.json().result[0][0])
-            .do(blah => console.log('test', blah))
-            .catch(this.handleError);
+        return this.rpc.call('njs', 'run_app', params);
     }
-
-
 
 
     private handleError (error: Response) {
-        // in a real world app, we may send the error to some remote logging infrastructure
-        // instead of just logging it to the console
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }

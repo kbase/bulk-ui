@@ -58,7 +58,7 @@ export class FileTableComponent implements OnInit {
     ngOnInit() {
         console.log('path', this.selectedPath)
         if (this.selectedPath in this._ftp.files)
-            this.files = this._ftp.files[this.selectedPath;
+            this.files = this._ftp.files[this.selectedPath];
         else
             this._ftp
                 .getFiles(this.selectedPath)

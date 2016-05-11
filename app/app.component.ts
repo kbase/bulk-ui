@@ -11,6 +11,7 @@ import { FileTableComponent } from './file-table/file-table';
 // singleton
 import { HTTP_PROVIDERS }    from '@angular/http';
 import { FtpService } from './services/ftp.service';
+import { KBaseRpc } from './services/kbase-rpc.service';
 
 
 
@@ -29,7 +30,8 @@ import { FtpService } from './services/ftp.service';
     ],
     providers: [
         HTTP_PROVIDERS,
-        FtpService
+        FtpService,
+        KBaseRpc
     ]
 })
 
