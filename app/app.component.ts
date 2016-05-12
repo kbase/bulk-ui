@@ -54,9 +54,7 @@ import { KBaseRpc } from './services/kbase-rpc.service';
 
 export class AppComponent {
 
-    constructor(public ftpService: FtpService) {
-
-    }
+    constructor(public ftpService: FtpService) {}
 
 }
 
