@@ -1,9 +1,9 @@
-import { Component} from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 
 @Component({
-  selector: 'header',
+  selector: 'toolbar',
   templateUrl: 'app/toolbar/toolbar.html',
   styleUrls: ['app/toolbar/toolbar.css'],
   directives: [
@@ -15,9 +15,12 @@ import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 
 export class ToolbarComponent {
+    @Input() sidenav;
 
-    constructor() {
+    constructor() {}
 
+    toggleSidenav() {
+         this.sidenav.toggle();
     }
 
 }

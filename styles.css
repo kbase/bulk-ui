@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
-
+@import url(lib/fonts/styles.css);
 
 /**
  *  Master Styles
@@ -26,15 +26,9 @@ column {
     width: 100%;
 }
 
-a {
-    color: #0088cc;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #2a6496;
-}
-
+a { color: #0088cc; text-decoration: none; }
+a:hover { color: #2a6496; }
+a.no-link { color: #444; }
 
 /**
  *  Generic Classes
@@ -46,11 +40,13 @@ a:hover {
 .pull-left { float: left; }
 .pull-right { float: right; }
 .vertical-center { vertical-align: middle; }
+.text-center { text-align: center; }
 
 .button-icon {
     position: relative;
     top: 6px;
 }
+
 
 
 /* lists */
@@ -70,14 +66,38 @@ i.icon-small { font-size: .9em; }
 /* color */
 .text-muted { color: #aaa; }
 
+/* cursor and hover */
+.pointer:hover { cursor: pointer; }
+a.hover > i{ opacity: 0.7; }
+a.hover:hover > i{ opacity: 1.0; }
+
+
+/* kbase sidenav (global piece) */
+
+#kbase-sidenav ul {
+    margin-top: 10px;
+}
+
+#kbase-sidenav ul > li {
+    padding: 10px;
+}
+
+#kbase-sidenav ul > li > a {
+    width: 100%;
+    display: block;
+}
 
 /**
- *  NG Material specific things
+ *  NG Material-specific things
  */
 
  md-progress-circle {
      width: 40px !important;
  }
+
+md-sidenav {
+    width: 200px;
+}
 
 /* everywhere else */
 * {

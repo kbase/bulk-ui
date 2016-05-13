@@ -1,4 +1,12 @@
 <toolbar>
+    <nav class="left-side-nav">
+        <a (click)="toggleSidenav()" class="no-link pointer hover">
+            <i *ngIf="sidenav.opened" class="material-icons sidenav-caret">arrow_left</i>
+            <i class="material-icons icon-menu">menu</i>
+        </a>
+
+    </nav>
+
     <logo>
         <a href="http://kbase.us">
             <img src="https://narrative.kbase.us/modules/plugins/mainwindow/resources/images/kbase_logo.png">
@@ -7,11 +15,12 @@
 
     <div class="app-name">Bulk Upload</div>
 
-    <nav>
-        <div class="right-side-nav">
-            <a [routerLink]="['/About']">
-                About
-            </a>
-        </div>
+    <nav class="right-side-nav">
+        <a [routerLink]="['/About']">
+            About
+        </a>
+        <a href="https://narrative.kbase.us/#login">
+            <i class="material-icons">person</i> Logout
+        </a>
     </nav>
 </toolbar>
