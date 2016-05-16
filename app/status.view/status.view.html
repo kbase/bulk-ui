@@ -1,0 +1,25 @@
+
+<div class="top-bar clearfix">
+
+    <button md-raised-button
+            [routerLink]="['/Selector/FileTable', {path: ''}]"
+            color="primary"
+            class="back-button-bah pull-left">
+            <i class="material-icons button-icon">arrow_backward</i>
+            Import New Data
+    </button>
+
+    <div class="help-text pull-left">Your Upload Status</div>
+
+</div>
+
+
+<card>
+
+    There is currently no (reasonable) way to get upload status.<br>
+    <br>
+
+    <pre>{{status}}</pre>
+
+    <md-progress-circle *ngIf="!status" mode="indeterminate"></md-progress-circle>
+</card>

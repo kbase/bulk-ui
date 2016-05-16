@@ -40,4 +40,8 @@ export class JobService {
         return this.rpc.call('njs', 'run_app', params);
     }
 
+    status() {
+        return this.rpc.call('njs', 'status');
+    }
+
 }

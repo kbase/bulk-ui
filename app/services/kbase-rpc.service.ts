@@ -10,14 +10,14 @@ export class KBaseRpc {
 
     constructor(private http: Http) {}
 
-    call(service: string, method: string, params: Object, isOrdered?: boolean) {
+    call(service: string, method: string, params?: Object, isOrdered?: boolean) {
         let headers = new Headers({ 'Authorization': token });
         let options = new RequestOptions({ headers: headers });
 
         var args = {
             version: "1.1",
             id: String(Math.random()).slice(5),
-            params: isOrdered ? params : [params]
+            params: params ? (isOrdered ? params : [params]) : []
         }
 
         if ( service === 'njs' ) {
@@ -28,7 +28,7 @@ export class KBaseRpc {
         let body = JSON.stringify(args);
 
         return this.http.post(endpoint, body, options)
-            .map(res => res.json().result[0][0])
+            .map(res => { return res.json().result[0]; })
             .catch(this.handleError);
     }
 

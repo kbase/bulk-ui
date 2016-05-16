@@ -12,7 +12,7 @@ body {
 
 .content {
     height: 100%;
-    padding: 100px 10px 10 10px;
+    padding: 80px 20px 10 20px;
 }
 
 card {
@@ -41,13 +41,13 @@ a.no-link { color: #444; }
 .pull-right { float: right; }
 .vertical-center { vertical-align: middle; }
 .text-center { text-align: center; }
+.clearfix { overflow: auto; }
 
 .button-icon {
     position: relative;
     top: 6px;
+    width: 25px;
 }
-
-
 
 /* lists */
 ul.list-inline {
@@ -59,6 +59,13 @@ ul.list-unstyled {
     list-style: none;
 }
 
+/* text */
+
+.help-text {
+    color: #aaa;
+    font-size: 1.3em;
+    margin: 15px;
+}
 
 /* icons */
 i.icon-small { font-size: .9em; }

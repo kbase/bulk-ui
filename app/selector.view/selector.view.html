@@ -8,6 +8,8 @@
     </card>
     -->
 
+    <a [routerLink]="['/Status']">View active uploads</a><br>
+    <br>
 
     <div class="file-tree-container">
         <card class="file-tree">
@@ -19,6 +21,9 @@
 </div>
 
 <div class="pull-right file-table-container">
+
+    <div class="help-text">Select the files you wish to import.</div>
+
     <card class="file-table">
         <router-outlet></router-outlet>
     </card>

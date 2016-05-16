@@ -4,6 +4,7 @@ import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { SelectorView } from './selector.view/selector.view';
 import { EditMetaView } from './edit-meta.view/edit-meta.view';
 import { AboutView } from './about.view/about.view';
+import { StatusView } from './status.view/status.view';
 
 import { ToolbarComponent } from './toolbar/toolbar';
 import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav'
@@ -64,7 +65,6 @@ import { KBaseAuthHandler } from './services/kbase-auth.service';
                         <i class="icon-info-circle"></i> About KBase</a>
                     </li>
                 </ul>
-
             </md-sidenav>
 
             <toolbar [sidenav]="sidenav"></toolbar>
@@ -86,10 +86,14 @@ import { KBaseAuthHandler } from './services/kbase-auth.service';
     path: '/about',
     name: 'About',
     component: AboutView,
-  },{
+  }, {
     path:'/edit-meta',
     name: 'EditMeta',
     component: EditMetaView
+  }, {
+    path:'/status',
+    name: 'Status',
+    component: StatusView
   }
 ])
 
