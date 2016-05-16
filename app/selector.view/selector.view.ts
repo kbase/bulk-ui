@@ -24,10 +24,13 @@ import { FtpService } from '../services/ftp.service';
 ])
 
 export class SelectorView implements OnInit {
-    public folders;
+    folders;
 
     selectedFolder;
     selectedPath: string;
+
+    activeImports: number = 0;
+    completedImports: number = 0;
 
     constructor(
         private _routeParams: RouteParams,
