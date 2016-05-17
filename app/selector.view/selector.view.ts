@@ -24,10 +24,13 @@ import { FtpService } from '../services/ftp.service';
 ])
 
 export class SelectorView implements OnInit {
-    public folders;
+    folders;
 
     selectedFolder;
     selectedPath: string;
+
+    activeImports: number = 0;
+    completedImports: number = 0;
 
     constructor(
         private _routeParams: RouteParams,
@@ -35,7 +38,6 @@ export class SelectorView implements OnInit {
 
         this._ftpService.selectedPath$.subscribe(
             thing => {
-                console.log('chang!')
                 this.selectedPath = thing;
             })
     }
@@ -54,7 +56,5 @@ export class SelectorView implements OnInit {
     onFolderSelect(folder) {
         console.log('folder!', folder)
     }
-
-
 
 }

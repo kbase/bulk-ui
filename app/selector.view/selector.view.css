@@ -4,7 +4,40 @@
     width: 22%;
 }
 
+.side-nav-card {
+    position: relative;
+    width: 100%;
+}
+
 .quota {
+    width: 100%;
+}
+
+.import-status {
+    height: 50px;
+}
+
+.import-status .import-count {
+    color: #444;
+    font-weight: 800;
+}
+
+.view-status {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: .9em;
+}
+
+
+file-tree {
+    display: block;
+    margin-left: -20px;
+}
+
+.file-tree {
+    height: calc(100% - 230px);
+    overflow-y: scroll;
     width: 100%;
 }
 
@@ -13,14 +46,10 @@
 }
 
 
-.file-tree-container {
-    position: relative;
-    width: 100%;
-
+.color-ok {
+    color: #34B0D8;
 }
 
-.file-tree {
-
-    left: -30px;
-    width: 100%;
+.color-success {
+    color: #5DAB4C;
 }

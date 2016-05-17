@@ -1,5 +1,5 @@
 
-toolbar {
+:host {
     position: fixed;
     height: 65px;
     background-color: #fff;
@@ -14,18 +14,43 @@ logo {
     margin: 10px 0 0 15px;
     font-size: 1.3em;
     float: left;
-    display: inline;
 }
 
 .app-name {
     color: #333;
     font-size: 1.4em;
-    margin: 22px 0 0 40px;
+    margin: 20px 0 0 40px;
     float: left;
 }
 
-nav > .right-side-nav {
-    float:right;
-    margin: 25px 30px;
+
+nav.left-side-nav {
+    float: left;
+    margin: 18px 10px;
 }
 
+nav.right-side-nav {
+    float:right;
+    margin: 15px 40px;
+}
+
+nav.right-side-nav > a:not(:last-child) {
+    margin-right: 15px;
+}
+
+
+nav.right-side-nav > a > i.material-icons {
+    position: relative;
+    top: 4px;
+}
+
+
+/* sidenav */
+.icon-menu {
+    font-size: 1.9em;
+}
+.sidenav-caret {
+    position: relative;
+    bottom: 3px;
+    left: 10px;
+}

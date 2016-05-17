@@ -8,17 +8,31 @@
     </card>
     -->
 
+    <card class="side-nav-card import-status">
+        <a [routerLink]="['/Status']" class="import-count pull-left">
+            <span class="color-ok">{{activeImports}}</span> active
+        </a>
+        <a [routerLink]="['/Status']" class="import-count pull-right">
+            <span class="color-success">{{completedImports}}</span> completed
+        </a>
 
-    <div class="file-tree-container">
-        <card class="file-tree">
-            <file-tree [folders]="folders" [onSelect]="onFolderSelect" [selectedPath]="selectedPath"></file-tree>
+        <a [routerLink]="['/Status']" class="view-status">View status/history</a>
+    </card>
 
-        </card>
-    </div>
+    <br>
+
+    <card class="file-tree">
+        <file-tree [folders]="folders" [onSelect]="onFolderSelect" [selectedPath]="selectedPath"></file-tree>
+
+    </card>
+
 
 </div>
 
 <div class="pull-right file-table-container">
+
+    <div class="help-text">Select the files you wish to import.</div>
+
     <card class="file-table">
         <router-outlet></router-outlet>
     </card>

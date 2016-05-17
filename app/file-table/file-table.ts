@@ -1,8 +1,10 @@
 
 import { Component, OnInit} from '@angular/core';
 import { RouteParams, RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+
 import { MdCheckbox } from '@angular2-material/checkbox';
 import { MdButton } from '@angular2-material/button';
+import { MdProgressCircle } from '@angular2-material/progress-circle';
 
 import { DefaultSorter } from '../grid/defaultSorter';
 import { DataTable } from '../grid/dataTable';
@@ -20,6 +22,7 @@ import { Util } from '../services/util';
     ROUTER_DIRECTIVES,
     MdCheckbox,
     MdButton,
+    MdProgressCircle,
 
     DataTable,
     DefaultSorter
@@ -58,7 +61,7 @@ export class FileTableComponent implements OnInit {
     ngOnInit() {
         console.log('path', this.selectedPath)
         if (this.selectedPath in this._ftp.files)
-            this.files = this._ftp.files[this.selectedPath;
+            this.files = this._ftp.files[this.selectedPath];
         else
             this._ftp
                 .getFiles(this.selectedPath)

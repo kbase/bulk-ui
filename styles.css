@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
-
+@import url(lib/fonts/styles.css);
 
 /**
  *  Master Styles
@@ -8,11 +8,11 @@
 body {
     margin: 0;
     background-color: #f7f7f7;
+    color: #333;
 }
 
 .content {
-    height: 100%;
-    padding: 100px 10px 10 10px;
+    padding: 100px 20px 0px 20px;
 }
 
 card {
@@ -26,15 +26,9 @@ column {
     width: 100%;
 }
 
-a {
-    color: #0088cc;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #2a6496;
-}
-
+a { color: #0088cc; text-decoration: none; }
+a:hover { color: #2a6496; }
+a.no-link { color: #444; }
 
 /**
  *  Generic Classes
@@ -46,12 +40,14 @@ a:hover {
 .pull-left { float: left; }
 .pull-right { float: right; }
 .vertical-center { vertical-align: middle; }
+.text-center { text-align: center; }
+.clearfix { overflow: auto; }
 
 .button-icon {
     position: relative;
     top: 6px;
+    width: 25px;
 }
-
 
 /* lists */
 ul.list-inline {
@@ -63,6 +59,13 @@ ul.list-unstyled {
     list-style: none;
 }
 
+/* text */
+
+.help-text {
+    color: #aaa;
+    font-size: 1.3em;
+    margin: 15px;
+}
 
 /* icons */
 i.icon-small { font-size: .9em; }
@@ -70,11 +73,40 @@ i.icon-small { font-size: .9em; }
 /* color */
 .text-muted { color: #aaa; }
 
+/* cursor and hover */
+.pointer:hover { cursor: pointer; }
+a.hover > i{ opacity: 0.7; }
+a.hover:hover > i{ opacity: 1.0; }
 
 
+/* kbase sidenav (global piece) */
+
+#kbase-sidenav ul {
+    margin-top: 10px;
+}
+
+#kbase-sidenav ul > li {
+    padding: 10px;
+}
+
+#kbase-sidenav ul > li > a {
+    width: 100%;
+    display: block;
+}
+
+/**
+ *  NG Material-specific things
+ */
+
+ md-progress-circle {
+     width: 40px !important;
+ }
+
+md-sidenav {
+    width: 200px;
+}
 
 /* everywhere else */
 * {
-    /*font-family: Arial, Helvetica, sans-serif;*/
     font-family: 'Roboto', sans-serif;
 }
