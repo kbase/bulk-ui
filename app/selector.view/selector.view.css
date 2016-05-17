@@ -29,11 +29,17 @@
     font-size: .9em;
 }
 
-.file-tree {
-    left: -30px;
-    width: 100%;
+
+file-tree {
+    display: block;
+    margin-left: -20px;
 }
 
+.file-tree {
+    height: calc(100% - 230px);
+    overflow-y: scroll;
+    width: 100%;
+}
 
 .file-table-container {
     width: 75%;

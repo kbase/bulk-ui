@@ -34,7 +34,7 @@ import { KBaseAuthHandler } from './services/kbase-auth.service';
         KBaseAuthHandler,
     ],
     template: `
-        <md-sidenav-layout class="demo-sidenav-layout">
+        <md-sidenav-layout>
 
             <md-sidenav #sidenav mode="side" id="kbase-sidenav">
                 <ul class="list-unstyled">
