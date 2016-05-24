@@ -1,17 +1,55 @@
+<div class="top-bar clearfix">
 
+    <button md-raised-button
+            [routerLink]="['/Selector/FileTable', {path: ''}]"
+            color="primary"
+            class="back-button pull-left">
+            <i class="material-icons button-icon">arrow_backward</i>
+            Back
+    </button>
 
+    <div class="help-text pull-left">Select a narrative, edit the associated meta data, and import.</div>
+
+</div>
 
 <card>
-    <h3>
-        This is the edit meta view
+    <h3>This is the edit meta view
+        <button md-raised-button (click)="showData()" class="pull-right">log current data</button>
     </h3>
 
-
-
+    <!--
     <ul *ngFor="let file of files">
         <li>
             {{file.path}}
         </li>
     </ul>
+    -->
+
+
+    <table class="edit-sheet">
+        <thead>
+            <tr>
+                <th>file name</th>
+
+                <th *ngFor="let spec of exampleSpec">{{spec.name}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let file of files">
+                <td class="file-name">
+                    {{file.name}}
+                </td>
+
+                <td *ngFor="let spec of exampleSpec"
+                    (mousedown)="selectCell($event)"
+                    (mouseup)="mouseUp($event)"
+                    (mouseover)="cellSelection && mouseOver($event)">
+                    <input [(ngModel)]="file.meta[spec.prop]">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
 
 </card>
