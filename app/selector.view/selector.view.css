@@ -1,12 +1,11 @@
 
-
 .side-nav {
-    width: 22%;
+    float: left;
 }
 
-.side-nav-card {
-    position: relative;
-    width: 100%;
+.side-nav card {
+    width: 21%;
+    position: fixed;
 }
 
 .quota {
@@ -29,20 +28,20 @@
     font-size: .9em;
 }
 
-
 file-tree {
     display: block;
     margin-left: -20px;
 }
 
-.file-tree {
-    height: calc(100% - 230px);
-    overflow-y: scroll;
-    width: 100%;
+.file-tree-container {
+    margin-top: 65px;
+    height: calc(100% - 220px);
+    overflow-y: auto;
 }
 
 .file-table-container {
     width: 75%;
+    float: right;
 }
 
 
