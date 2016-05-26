@@ -15,11 +15,26 @@
 
 
 <card>
-
-    There is currently no (reasonable) way to get upload status.<br>
-    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>File Count</th>
+                <th>Started</th>
+                <th>Last Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let meta of metaList">
+                <td>{{meta[0]}}</td>
+                <td>{{meta[0].split(',').length}}</td>
+                <td>{{meta[3]}}</td>
+                <td>{{meta[5]}}</td>
+            </tr>
+        </tbody>
+    </table>
 
     <pre>{{status}}</pre>
 
-    <md-progress-circle *ngIf="!status" mode="indeterminate"></md-progress-circle>
+    <md-progress-circle *ngIf="!metaList" mode="indeterminate"></md-progress-circle>
 </card>

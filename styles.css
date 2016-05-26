@@ -5,14 +5,18 @@
  *  Master Styles
  */
 
-body {
+html, body {
     margin: 0;
-    background-color: #f7f7f7;
+    background-color: #f9f9f9;
     color: #333;
+    position: relative;
+    height: 100%;
 }
 
 .content {
-    padding: 100px 20px 0px 20px;
+    height: calc(100% - 90px);
+    padding: 90px 20px 0px 20px;
+    overflow-y: auto;
 }
 
 card {
@@ -98,13 +102,58 @@ a.hover:hover > i{ opacity: 1.0; }
  *  NG Material-specific things
  */
 
- md-progress-circle {
-     width: 40px !important;
- }
+md-progress-circle {
+    width: 40px !important;
+}
 
 md-sidenav {
     width: 200px;
 }
+
+md-content {
+    display:block;
+    position:relative;
+}
+
+my-app {
+    position: relative;
+}
+
+md-sidenav-layout {
+    height: 100%;
+}
+
+/**
+ *  standard table (to be replaced by dtable?)
+ */
+
+table.table {
+    margin-top: 30px;
+    border-collapse: collapse;
+}
+
+table.table > thead > tr > th {
+    text-align: left;
+    padding: 9px;
+    border-bottom: 2px solid #ddd;
+}
+
+table.table > thead > tr > th:hover {
+    cursor: pointer;
+}
+
+table.table > tbody > tr:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+
+table.table > tbody > tr > td {
+    padding: 10px;
+}
+
+table.table {
+    width: 100%;
+}
+
 
 /* everywhere else */
 * {

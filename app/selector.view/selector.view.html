@@ -1,5 +1,5 @@
 
-<div class="side-nav pull-left">
+<div class="side-nav">
 
     <!--
     <card class="quota">
@@ -8,7 +8,7 @@
     </card>
     -->
 
-    <card class="side-nav-card import-status">
+    <card class="import-status">
         <a [routerLink]="['/Status']" class="import-count pull-left">
             <span class="color-ok">{{activeImports}}</span> active
         </a>
@@ -21,15 +21,16 @@
 
     <br>
 
-    <card class="file-tree">
-        <file-tree [folders]="folders" [onSelect]="onFolderSelect" [selectedPath]="selectedPath"></file-tree>
+    <card class="file-tree-container">
+        <file-tree [folders]="folders"
+                   [onSelect]="onFolderSelect"
+                   [selectedPath]="selectedPath">
+        </file-tree>
 
     </card>
-
-
 </div>
 
-<div class="pull-right file-table-container">
+<div class="file-table-container">
 
     <div class="help-text">Select the files you wish to import.</div>
 

@@ -1,0 +1,29 @@
+table.edit-sheet {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.edit-sheet > tbody > tr > td {
+    border: 1px solid #bbb;
+}
+
+
+table.edit-sheet input {
+    width: 100%;
+    -webkit-appearance:none;
+    padding: 0;
+    border: none;
+    padding: .7em;
+    font-size: .8em;
+}
+
+
+.file-name {
+    font-weight: 700;
+    padding: .7em;
+    font-size: .8em;
+}
+
+.selected {
+    background-color: #E2F3FF;
+}

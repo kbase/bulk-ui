@@ -20,9 +20,15 @@ export class KBaseRpc {
             params: params ? (isOrdered ? params : [params]) : []
         }
 
-        if ( service === 'njs' ) {
+        if (service === 'njs') {
             args['method'] = 'NarrativeJobService.'+method;
             var endpoint = config.endpoints.njs;
+        } else if (service === 'ujs') {
+            args['method'] = 'UserAndJobState.'+method;
+            var endpoint = config.endpoints.ujs;
+        } else {
+            console.error("Can't make RPC call: invalid service abbreviation. Was given:", service);
+            return;
         }
 
         let body = JSON.stringify(args);

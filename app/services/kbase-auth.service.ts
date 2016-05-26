@@ -19,7 +19,6 @@ export class KBaseAuthHandler {
     }
 
     logout() {
-        document.cookie;
         console.log('fake logout; the cookie was:', document.cookie)
     }
 

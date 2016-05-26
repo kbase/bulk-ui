@@ -1,16 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-
-import {Observable}     from 'rxjs/Observable';
-
+import { Observable } from 'rxjs/Observable';
 import { KBaseRpc } from './kbase-rpc.service';
+
+// test tokens for ujs calls
+//import { token } from '../dev-user-token';
+import { token } from '../kbio-token';
+
 
 @Injectable()
 export class JobService {
 
     constructor(private rpc: KBaseRpc) {}
 
-    runJob() {
+    runGenomeTransform() {
+        let params = {
+            method: "genome_transform.genbank_to_genome",
+            service_ver: 'dev',
+            params: [{
+                genbank_file_path: "/kb/module/data/NC_003197.gbk",
+                //genbank_shock_ref: "https://ci.kbase.us/services/shock-api",
+                workspace: "janakakbase:1464032798535",
+                genome_id: "NC_003197",
+                contigset_id: "NC_003197ContigSet"
+            }]
+        }
+
+        return this.rpc.call('njs', 'run_job', params);
+    }
+
+    private _runTestApp() {
         let params = {
             steps: [{
                 service: {
@@ -40,8 +58,26 @@ export class JobService {
         return this.rpc.call('njs', 'run_app', params);
     }
 
-    status() {
-        return this.rpc.call('njs', 'status');
+
+    listJobs() {
+        return this.rpc.call('ujs', 'list_jobs', [['kbio'], ''], true)
+    }
+
+    createAndStartJob() {
+        return this.rpc.call('ujs', 'create_and_start_job',
+            [token, 'starting', 'job description placeholder', {ptype: 'percent'}, '2020-04-03T08:56:32+0000'], true)
+    }
+
+    status(jobId: string) {
+        return this.rpc.call('njs', 'check_job', [jobId], true);
+    }
+
+    setState(jobId: string){
+        return this.rpc.call('ujs', 'set_state', ['bulkupload', jobId, ''], true)
+    }
+
+    listState() {
+        return this.rpc.call('ujs', 'list_state', ['bulkupload', 0], true)
     }
 
 }
