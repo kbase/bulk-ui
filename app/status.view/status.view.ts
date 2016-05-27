@@ -30,10 +30,11 @@ export class StatusView {
                 res => this.metaList = res,
                 error =>  this.errorMessage = <any>error)
 
-        this.jobService.createAndStartJob()
-            .subscribe(
-                res => console.log('create and start res', res),
-                error =>  this.errorMessage = <any>error)
+        // testing
+        //this.jobService.createAndStartJob()
+        //    .subscribe(
+        //        res => console.log('create and start res', res),
+        //        error =>  this.errorMessage = <any>error)
 
     }
 

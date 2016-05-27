@@ -8,7 +8,26 @@
             Back
     </button>
 
-    <div class="help-text pull-left">Select a narrative, edit the associated meta data, and import.</div>
+    <div class="help-text pull-left">
+        Select a narrative, edit the associated meta data, and import.
+    </div>
+
+    <div class="pull-right">
+        <div class="check-counter">
+            {{selectedCount}} selected
+            <!--<span *ngIf="selectedCount">
+                (<a (click)="clearSelected()">clear</a>)
+            </span>-->
+        </div>
+
+        <button md-raised-button
+            [routerLink]="['/EditMeta']"
+            [disabled]="false"
+            color="primary"
+            class="pull-right">
+            Import <i class="material-icons button-icon">arrow_forward</i>
+        </button>
+    </div>
 
 </div>
 
@@ -16,15 +35,6 @@
     <h3>This is the edit meta view
         <button md-raised-button (click)="showData()" class="pull-right">log current data</button>
     </h3>
-
-    <!--
-    <ul *ngFor="let file of files">
-        <li>
-            {{file.path}}
-        </li>
-    </ul>
-    -->
-
 
     <table class="edit-sheet">
         <thead>
@@ -50,6 +60,13 @@
         </tbody>
     </table>
 
-
-
 </card>
+
+
+<!--
+<ul *ngFor="let file of files">
+    <li>
+        {{file.path}}
+    </li>
+</ul>
+-->

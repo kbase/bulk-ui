@@ -4,7 +4,7 @@ import { KBaseRpc } from './kbase-rpc.service';
 
 // test tokens for ujs calls
 //import { token } from '../dev-user-token';
-import { token } from '../kbio-token';
+import { token } from '../bulkio-token';
 
 
 @Injectable()
@@ -60,10 +60,13 @@ export class JobService {
 
 
     listJobs() {
-        return this.rpc.call('ujs', 'list_jobs', [['kbio'], ''], true)
+        let user = 'bulkio';
+        console.log('calling list jobs with user:', user)
+        return this.rpc.call('ujs', 'list_jobs', [[user], ''], true)
     }
 
     createAndStartJob() {
+        console.log('calling create and start with token:', token)
         return this.rpc.call('ujs', 'create_and_start_job',
             [token, 'starting', 'job description placeholder', {ptype: 'percent'}, '2020-04-03T08:56:32+0000'], true)
     }
@@ -72,10 +75,12 @@ export class JobService {
         return this.rpc.call('njs', 'check_job', [jobId], true);
     }
 
+    //unused
     setState(jobId: string){
         return this.rpc.call('ujs', 'set_state', ['bulkupload', jobId, ''], true)
     }
 
+    //unused
     listState() {
         return this.rpc.call('ujs', 'list_state', ['bulkupload', 0], true)
     }

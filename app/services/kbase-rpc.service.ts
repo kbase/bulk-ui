@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { token } from '../dev-user-token';
+
+import { token } from '../dev-user-token-2';
+
 import { config } from '../service-config';
 
-import {Observable}     from 'rxjs/Observable';
+import { Observable}     from 'rxjs/Observable';
 
 @Injectable()
 export class KBaseRpc {

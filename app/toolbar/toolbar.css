@@ -6,7 +6,7 @@
     color: #48B2C3;
     padding: 0px 10px;
     width: 100%;
-
+    z-index: 100;
 }
 
 logo {

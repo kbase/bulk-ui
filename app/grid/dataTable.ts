@@ -31,14 +31,12 @@ export class DataTable {
 
 
     ngOnChanges() {
-        console.log('on changes called');
         if (this.data)
             this.dataTableService.updateEvent(this.data, this.sortBy, this.sortOrder);
     }
 
     setSort(sortBy:string, sortOrder:string)  {
         console.log('the data', this.data)
-        //this.sorter.sort(sortBy, this.data)
     }
 
 

@@ -18,17 +18,19 @@ import { Folder } from './folder';
 export class FtpService {
     ftpUrl = 'http://0.0.0.0:3000/v0/list';
 
-    public selectedFiles = []; // files selected in UI
+    selectedFiles = []; // files selected in UI
+    files = {};         // file lists loaded and cached
 
     selectedFolder: Folder = {
         name: 'www',
         path: '/www'
     }
 
-    files = {};  // files organized by path
-
     selectedPath = new Subject<string>();
+    selectedFileCount = new Subject<number>();
+
     selectedPath$ = this.selectedPath.asObservable();
+    selectedFileCount$ = this.selectedFileCount.asObservable();
 
     constructor(private http: Http) {}
 
@@ -60,23 +62,27 @@ export class FtpService {
 
     selectFile(file) {
         this.selectedFiles.push(file);
+        this.selectedFileCount.next(this.selectedFiles.length);
     }
 
     unselectFile(file) {
-        this.selectedFiles = this.selectedFiles.filter(existingFile => {
-            if (existingFile.path != file.path) return true;
+        this.selectedFiles = this.selectedFiles.filter(f => {
+            if (f.path != file.path) return true;
         })
 
-        return this.selectedFiles;
+        this.selectedFileCount.next(this.selectedFiles.length);
 
+        return this.selectedFiles;
     }
 
+    clearSelected() {
+        this.selectedFiles = [];
+        this.selectedFileCount.next(0);
+    }
 
     private handleError (error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }
-
-
 
 }

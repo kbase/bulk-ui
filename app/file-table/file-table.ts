@@ -3,7 +3,6 @@ import { Component, OnInit} from '@angular/core';
 import { RouteParams, RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 import { MdCheckbox } from '@angular2-material/checkbox';
-import { MdButton } from '@angular2-material/button';
 import { MdProgressCircle } from '@angular2-material/progress-circle';
 
 import { DefaultSorter } from '../grid/defaultSorter';
@@ -21,7 +20,6 @@ import { Util } from '../services/util';
   directives: [
     ROUTER_DIRECTIVES,
     MdCheckbox,
-    MdButton,
     MdProgressCircle,
 
     DataTable,
@@ -40,6 +38,7 @@ export class FileTableComponent implements OnInit {
     allChecked: boolean = false;           // wether or not all items are checked
 
     selectedFiles;
+    selectedCount;
 
     util = new Util();
     relativeTime = this.util.relativeTime; // use pipes
@@ -49,42 +48,47 @@ export class FileTableComponent implements OnInit {
     sortedCol: string;
 
     constructor(
-        private _routeParams: RouteParams,
-        private _ftp: FtpService) {
+        private routeParams: RouteParams,
+        private ftp: FtpService) {
 
-        this.selectedPath = decodeURI(_routeParams.get('path') );
+        this.selectedPath = decodeURI(routeParams.get('path') );
         this.pathList = this.selectedPath.split('/');
 
-        this.selectedFiles = _ftp.selectedFiles;
+        this.selectedFiles = ftp.selectedFiles;
      }
 
     ngOnInit() {
         console.log('path', this.selectedPath)
-        if (this.selectedPath in this._ftp.files)
-            this.files = this._ftp.files[this.selectedPath];
+
+        // if cached, load cached data
+        if (this.selectedPath in this.ftp.files)
+            this.files = this.ftp.files[this.selectedPath];
         else
-            this._ftp
+            this.ftp
                 .getFiles(this.selectedPath)
                 .subscribe(files => {
                     this.files = files
                 })
+
+        // unchecked all files on clear event
+        this.ftp.selectedFileCount$.subscribe(count => {
+            if (count === 0) this.files.forEach(file => file.checked = false);
+        })
     }
 
     toggleItem(checked, file) {
         file.checked = checked;
 
         if (checked == true)
-            this._ftp.selectFile(file);
+            this.ftp.selectFile(file);
         else
-            this.selectedFiles = this._ftp.unselectFile(file);
+            this.selectedFiles = this.ftp.unselectFile(file);
     }
 
 
     toggleCheckAll(event) {
-        if (this.allChecked) {
+        if (this.allChecked)
             this.files.forEach(file => file.checked = false);
-            //this._ftp.unselectAllFiles();
-        }
 
         this.allChecked = !this.allChecked;
     }

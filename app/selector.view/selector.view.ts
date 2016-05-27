@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { RouteParams, RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
+import { MdButton } from '@angular2-material/button';
+
 import { FileTreeComponent } from '../file-tree/file-tree';
 import { FileTableComponent } from '../file-table/file-table';
 
@@ -13,7 +15,8 @@ import { FtpService } from '../services/ftp.service';
   directives: [
       FileTreeComponent,
       FileTableComponent,
-      ROUTER_DIRECTIVES
+      ROUTER_DIRECTIVES,
+      MdButton
   ],
   providers: [
   ]
@@ -29,28 +32,35 @@ export class SelectorView implements OnInit {
     selectedFolder;
     selectedPath: string;
 
+    selectedFiles;
+    selectedCount;
+
     activeImports: number = 0;
     completedImports: number = 0;
 
     constructor(
-        private _routeParams: RouteParams,
-        private _ftpService: FtpService) {
+        private routeParams: RouteParams,
+        private ftp: FtpService) {
 
-        this._ftpService.selectedPath$.subscribe(
-            thing => {
-                this.selectedPath = thing;
-            })
+        this.ftp.selectedPath$.subscribe(path => this.selectedPath = path)
+        this.ftp.selectedFileCount$.subscribe(count => this.selectedCount = count)
+
+    }
+
+    ngOnInit() {
+        this.getFolders();
+        this.selectedCount = this.ftp.selectedFiles.length;
     }
 
     // initial loading of top level folders
     getFolders() {
-        this._ftpService.getFolders()
+        this.ftp.getFolders()
             .subscribe(folders => this.folders = folders)
     }
 
-
-    ngOnInit() {
-        this.getFolders();
+    clearSelected() {
+        this.selectedFiles = [];
+        this.ftp.clearSelected();
     }
 
     onFolderSelect(folder) {
