@@ -1,12 +1,13 @@
 <div class="top-bar clearfix">
 
     <button md-raised-button
-            [routerLink]="['/Selector/FileTable', {path: ''}]"
+            [routerLink]="['/Selector/FileTable', {'path': selectedPath}]"
             color="primary"
             class="back-button pull-left">
             <i class="material-icons button-icon">arrow_backward</i>
             Back
     </button>
+
 
     <div class="help-text pull-left">
         Select a narrative, edit the associated meta data, and import.
@@ -22,7 +23,7 @@
 
         <button md-raised-button
             [routerLink]="['/EditMeta']"
-            [disabled]="false"
+            [disabled]="!selectedCount"
             color="primary"
             class="pull-right">
             Import <i class="material-icons button-icon">arrow_forward</i>

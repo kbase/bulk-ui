@@ -23,6 +23,7 @@ import { MdButton } from '@angular2-material/button'
 
 export class EditMetaView implements OnInit {
     files = [];
+    selectedPath;
     selectedCount;
     errorMessage;
 
@@ -46,6 +47,7 @@ export class EditMetaView implements OnInit {
         private ftp: FtpService,
         private jobService: JobService) {
 
+        this.ftp.selectedPath$.subscribe(path => this.selectedPath = path)
     }
 
     ngOnInit() {
