@@ -26,13 +26,30 @@
                    [onSelect]="onFolderSelect"
                    [selectedPath]="selectedPath">
         </file-tree>
-
     </card>
 </div>
 
 <div class="file-table-container">
 
     <div class="help-text">Select the files you wish to import.</div>
+
+    <div class="pull-right">
+        <div class="check-counter">
+            {{selectedCount}} selected
+            <span *ngIf="selectedCount">
+                (<a (click)="clearSelected()" class="pointer">clear</a>)
+            </span>
+        </div>
+
+        <button md-raised-button
+            [routerLink]="['/EditMeta']"
+            [disabled]="!selectedCount"
+            color="primary"
+            class="pull-right">
+            Continue <i class="material-icons button-icon">arrow_forward</i>
+        </button>
+    </div>
+
 
     <card class="file-table">
         <router-outlet></router-outlet>

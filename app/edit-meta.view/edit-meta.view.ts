@@ -23,6 +23,7 @@ import { MdButton } from '@angular2-material/button'
 
 export class EditMetaView implements OnInit {
     files = [];
+    selectedCount;
     errorMessage;
 
     exampleSpec = [{
@@ -42,12 +43,14 @@ export class EditMetaView implements OnInit {
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer,
-        private ftpService: FtpService,
+        private ftp: FtpService,
         private jobService: JobService) {
+
     }
 
     ngOnInit() {
         this.preprocessData();
+        this.selectedCount = this.ftp.selectedFiles.length;
 
         /* testing
         this.jobService.runGenomeTransform()
@@ -83,7 +86,7 @@ export class EditMetaView implements OnInit {
     // method to copy selected file data
     // and add any defaults to edit meta table data
     preprocessData() {
-        let files = Object.assign([], this.ftpService.selectedFiles);
+        let files = Object.assign([], this.ftp.selectedFiles);
 
 
         for (let i=0; i < files.length; i++) {

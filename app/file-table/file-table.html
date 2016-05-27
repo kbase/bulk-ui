@@ -13,21 +13,6 @@
 </breadcrumbs>
 
 
-<button md-raised-button
-        [routerLink]="['/EditMeta']"
-        [disabled]="!selectedFiles.length"
-        color="primary"
-        class="pull-right">
-        Continue <i class="material-icons button-icon">arrow_forward</i>
-</button>
-
-<!--
-<div *ngIf="selectedFiles.length" class="check-counter pull-right">
-    Selected: {{selectedFiles.length}}
-</div>
--->
-
-
 <table [dTable]="files" #table="dataTable" style="width: 100%;" >
     <thead>
         <tr>
@@ -38,15 +23,9 @@
                              aria-label="Select all">
                 </md-checkbox>
             </th>
-            <th>
-                <sorter by="name">Name</sorter>
-            </th>
-            <th>
-                <sorter by="size">Size</sorter>
-            </th>
-            <th>
-                <sorter by="mtime" sort="desc">Mod Time</sorter>
-            </th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Mod Time</th>
             <th>Type</th>
         </tr>
     </thead>
