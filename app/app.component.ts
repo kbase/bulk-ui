@@ -16,7 +16,8 @@ import { FileTableComponent } from './file-table/file-table';
 import { HTTP_PROVIDERS }    from '@angular/http';
 import { FtpService } from './services/ftp.service';
 import { KBaseRpc } from './services/kbase-rpc.service';
-import { KBaseAuthHandler } from './services/kbase-auth.service';
+
+import { KBaseAuth } from './services/kbase-auth.service';
 
 
 
@@ -31,7 +32,7 @@ import { KBaseAuthHandler } from './services/kbase-auth.service';
         HTTP_PROVIDERS,
         FtpService,
         KBaseRpc,
-        KBaseAuthHandler,
+        KBaseAuth,
     ],
     template: `
         <md-sidenav-layout>
@@ -99,7 +100,8 @@ import { KBaseAuthHandler } from './services/kbase-auth.service';
 
 export class AppComponent {
 
-    constructor(public ftpService: FtpService) {}
+    constructor(ftpService: FtpService,
+                authService: KBaseAuth) {}
 
 
 

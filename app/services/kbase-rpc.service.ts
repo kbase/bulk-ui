@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-import { token } from '../dev-user-token-2';
-
+import { KBaseAuth } from './kbase-auth.service';
 import { config } from '../service-config';
 
 import { Observable}     from 'rxjs/Observable';
@@ -10,10 +9,11 @@ import { Observable}     from 'rxjs/Observable';
 @Injectable()
 export class KBaseRpc {
 
-    constructor(private http: Http) {}
+    constructor(private http: Http,
+                private auth: KBaseAuth) {}
 
     call(service: string, method: string, params?: Object, isOrdered?: boolean) {
-        let headers = new Headers({ 'Authorization': token });
+        let headers = new Headers({ 'Authorization': this.auth.token });
         let options = new RequestOptions({ headers: headers });
 
         var args = {

@@ -5,6 +5,7 @@ import { ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import { MdProgressCircle } from '@angular2-material/progress-circle';
 import { MdButton } from '@angular2-material/button';
 
+import { Observable } from 'rxjs/Rx';
 
 
 @Component({
@@ -31,6 +32,23 @@ export class StatusView {
                 error =>  this.errorMessage = <any>error)
 
         // testing
+        /*
+        this.jobService.runGenomeTransform()
+            .subscribe(jobId => {
+                console.log('run job res:', jobId)
+                this.jobService.createImportJob([jobId])
+            }, error => {
+                this.errorMessage = <any>error;
+            })
+        */
+
+        /*
+        Observable.forkJoin(
+            request1,
+            request2
+        ).subscribe(res => res[0], res[1]);
+        */
+
         //this.jobService.createAndStartJob()
         //    .subscribe(
         //        res => console.log('create and start res', res),

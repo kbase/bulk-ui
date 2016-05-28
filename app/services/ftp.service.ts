@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { KBaseAuthHandler } from './kbase-auth.service';
-
 import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
 import 'rxjs/add/operator/map';

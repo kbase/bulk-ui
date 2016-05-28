@@ -9,18 +9,24 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-import {Observable}     from 'rxjs/Observable';
+import { token } from '../dev-user-token';
+import { Observable }     from 'rxjs/Observable';
 
 @Injectable()
-export class KBaseAuthHandler {
+export class KBaseAuth {
+    user: string;
+    token: string;
+
 
     constructor(private http: Http) {
-        console.log('called auth contructor')
+        console.log('called auth constructor.  cookie:', document.cookie)
+
+        document.cookie = 'kbase_session='+token;
+        this.user = token.split('|')[0].replace('un=', '');
+        this.token = token;
     }
 
-    logout() {
-        console.log('fake logout; the cookie was:', document.cookie)
-    }
+    logout() {}
 
     private handleError (error: Response) {
         console.error(error);
