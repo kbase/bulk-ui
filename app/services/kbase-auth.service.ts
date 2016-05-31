@@ -9,7 +9,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-import { token } from '../dev-user-token';
+import { token } from '../nconrad-token-2';
 import { Observable }     from 'rxjs/Observable';
 
 @Injectable()

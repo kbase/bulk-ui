@@ -5,6 +5,7 @@ import { FtpService } from '../services/ftp.service'
 import { HTTP_PROVIDERS }    from '@angular/http';
 
 import { JobService } from '../services/job.service';
+import { WorkspaceService } from '../services/workspace.service';
 
 import { MdButton } from '@angular2-material/button'
 
@@ -13,6 +14,7 @@ import { MdButton } from '@angular2-material/button'
     styleUrls: ['app/edit-meta.view/edit-meta.view.css'],
     providers: [
         JobService,
+        WorkspaceService,
         HTTP_PROVIDERS
     ],
     directives: [
@@ -26,6 +28,9 @@ export class EditMetaView implements OnInit {
     selectedPath;
     selectedCount;
     errorMessage;
+
+    narratives;
+    selectedNarrative;
 
     exampleSpec = [{
         name: 'Import Name',
@@ -45,7 +50,8 @@ export class EditMetaView implements OnInit {
         private elementRef: ElementRef,
         private renderer: Renderer,
         private ftp: FtpService,
-        private jobService: JobService) {
+        private jobService: JobService,
+        private wsService: WorkspaceService) {
 
         this.ftp.selectedPath$.subscribe(path => this.selectedPath = path)
     }
@@ -83,6 +89,12 @@ export class EditMetaView implements OnInit {
                 },
                 error =>  this.errorMessage = <any>error)
         */
+
+        this.wsService.listNarratives().subscribe(res => this.narratives = res)
+    }
+
+    selectNarrative(index) {
+        this.selectedNarrative = this.narratives[index];
     }
 
     // method to copy selected file data

@@ -28,6 +28,9 @@ export class KBaseRpc {
         } else if (service === 'ujs') {
             args['method'] = 'UserAndJobState.'+method;
             var endpoint = config.endpoints.ujs;
+        } else if (service === 'ws') {
+            args['method'] = 'Workspace.'+method;
+            var endpoint = config.endpoints.ws;
         } else {
             console.error("Can't make RPC call: invalid service abbreviation. Was given:", service);
             return;

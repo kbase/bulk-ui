@@ -33,9 +33,9 @@
 </div>
 
 <card>
-    <h3>This is the edit meta view
-        <button md-raised-button (click)="showData()" class="pull-right">log current data</button>
-    </h3>
+    <select (change)="selectNarrative($event.target.value)">
+        <option *ngFor="let narrative of narratives; let i = index" [value]="i">{{narrative.name}}</option>
+    </select>
 
     <table class="edit-sheet">
         <thead>
