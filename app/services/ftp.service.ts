@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
@@ -10,19 +10,20 @@ import 'rxjs/add/operator/catch';
 
 import { Folder } from './folder';
 
+import { config } from '../service-config';
+import { KBaseAuth } from './kbase-auth.service';
 
 @Injectable()
 
 export class FtpService {
-    ftpUrl = 'http://0.0.0.0:3000/v0/list';
+    ftpUrl = config.endpoints.ftpApi;
+    reqOptions; // temp storage of auth header
 
     selectedFiles = []; // files selected in UI
     files = {};         // file lists loaded and cached
 
-    selectedFolder: Folder = {
-        name: 'www',
-        path: '/www'
-    }
+    // default selected folder
+    selectedFolder: Folder;
 
     selectedPath = new Subject<string>();
     selectedFileCount = new Subject<number>();
@@ -30,25 +31,36 @@ export class FtpService {
     selectedPath$ = this.selectedPath.asObservable();
     selectedFileCount$ = this.selectedFileCount.asObservable();
 
-    constructor(private http: Http) {}
+    constructor(private http: Http,
+                private auth: KBaseAuth) {
+
+        let headers = new Headers({ 'Authorization': this.auth.token });
+        this.reqOptions = new RequestOptions({ headers: headers });
+
+        this.selectedFolder= {
+            name: auth.user,
+            path: '/'+auth.user
+        }
+    }
 
 
     // this method should be replaced with service calls
     getFolders(path?: string) {
-        path = path ? path : '/www';
-        return this.http.get(this.ftpUrl+path+'?type=folder')
+        path = path ? path : '/'+this.auth.user;
+        return this.http.get(this.ftpUrl+'/list'+path+'?type=folder', this.reqOptions)
                         .map(res =>  res.json() )
+                        .do(res => console.log('list files resp', res))
                         .catch(this.handleError);
     }
 
     // get files and cache
     getFiles(path?: string) {
-        path = path ? path : '/www';
-        return this.http.get(this.ftpUrl+path+'?type=file')
-                        .map(res => res.json())
-                        .do(files => this.files[path] = files)
-                        .catch(this.handleError);
-    }
+        path = path ? path : '/'+this.auth.user;
+        return this.http.get(this.ftpUrl+'/list'+path+'?type=file', this.reqOptions)
+                   .map(res => res.json())
+                   .do(files => this.files[path] = files)
+                   .catch(this.handleError);
+}
 
     setPath(path: string) {
         this.selectedPath.next(path);
