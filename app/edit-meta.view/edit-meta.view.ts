@@ -32,6 +32,8 @@ export class EditMetaView implements OnInit {
     narratives;
     selectedNarrative;
 
+    importInProgress: boolean = false;
+
     exampleSpec = [{
         name: 'Import Name',
         prop: "importName",
@@ -60,41 +62,34 @@ export class EditMetaView implements OnInit {
         this.preprocessData();
         this.selectedCount = this.ftp.selectedFiles.length;
 
-        /* testing
-        this.jobService.runGenomeTransform()
-            .subscribe(
-                jobId => {
-                    console.log('this is the res:', jobId)
-
-                    // setting state in UJS
-                    this.jobService.setState(jobId)
-                        .subscribe(
-                            res => {
-                                console.log('this is the set_state res:', res)
-
-                                // listing ujs state for bulkupload
-                                this.jobService.listState()
-                                    .subscribe(
-                                        res => { console.log('this is the list_state res:', res) },
-                                        error =>  this.errorMessage = <any>error)
-
-                            },
-                            error =>  this.errorMessage = <any>error)
-
-                    // getting status from njswrapper
-                    this.jobService.status(jobId)
-                        .subscribe(
-                            res => { console.log('this is the status res:', res) },
-                            error =>  this.errorMessage = <any>error)
-                },
-                error =>  this.errorMessage = <any>error)
-        */
-
-        this.wsService.listNarratives().subscribe(res => this.narratives = res)
+        this.wsService.listNarratives().subscribe(res => {
+            this.narratives = res;
+            this.selectedNarrative = this.narratives[0];
+        })
     }
 
     selectNarrative(index) {
         this.selectedNarrative = this.narratives[index];
+    }
+
+    startImport() {
+        console.log('starting import!')
+        this.importInProgress = true;
+
+        let path = this.files[0].path,
+            wsName = this.selectedNarrative.wsName;
+
+        this.jobService.runGenomeTransform(path, wsName)
+            .subscribe(res => {
+                console.log('import response', res)
+
+                this.jobService.createImportJob([res])
+                    .subscribe(res => {
+                        console.log('create import res', res)
+                        this.importInProgress = false;
+                })
+            })
+
     }
 
     // method to copy selected file data

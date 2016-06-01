@@ -22,7 +22,7 @@
         </div>
 
         <button md-raised-button
-            [routerLink]="['/EditMeta']"
+            (click)="startImport()"
             [disabled]="!selectedCount"
             color="primary"
             class="pull-right">
@@ -33,10 +33,13 @@
 </div>
 
 <card>
+    Destination Narrative:
     <select (change)="selectNarrative($event.target.value)">
         <option *ngFor="let narrative of narratives; let i = index" [value]="i">{{narrative.name}}</option>
     </select>
+    <br><br>
 
+    <h4>Edit meta data</h4>
     <table class="edit-sheet">
         <thead>
             <tr>

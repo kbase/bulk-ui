@@ -11,14 +11,13 @@ export class JobService {
 
     constructor(private rpc: KBaseRpc) {}
 
-    runGenomeTransform() {
+    runGenomeTransform(path: string, workspace: string) {
         let params = {
             method: "genome_transform.genbank_to_genome",
             service_ver: 'dev',
             params: [{
-                genbank_file_path: "/kb/module/data/NC_003197.gbk",
-                //genbank_shock_ref: "https://ci.kbase.us/services/shock-api",
-                workspace: "janakakbase:1464032798535",
+                genbank_file_path: '/data/bulktest/data/bulktest/'+path,
+                workspace: workspace,
                 genome_id: "NC_003197",
                 contigset_id: "NC_003197ContigSet"
             }]
@@ -35,7 +34,7 @@ export class JobService {
     }
 
     createImportJob(jobIds: string[]) {
-        console.log('creating import job', token)
+        console.log('creating import job', jobIds)
         return this.rpc.call('ujs', 'create_and_start_job',
             [token, 'bulkimport', jobIds.join(','), {ptype: 'percent'}, ''], true)
     }
