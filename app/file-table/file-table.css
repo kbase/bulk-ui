@@ -23,4 +23,6 @@ table > tbody > tr > td {
     padding: 10px;
 }
 
-
+.no-files-found {
+    margin: 10px;
+}
