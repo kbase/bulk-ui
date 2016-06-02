@@ -85,7 +85,6 @@ export class EditMetaView implements OnInit {
         let path = this.files[0].path,
             wsName = this.selectedNarrative.wsName;
 
-
         this.jobService.runGenomeTransform(path, wsName)
             .subscribe(res => {
                 console.log('import response', res)

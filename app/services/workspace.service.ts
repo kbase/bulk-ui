@@ -23,7 +23,7 @@ export class WorkspaceService {
                         narrativeSpaces.push({
                             name: meta.narrative_nice_name,
                             wsId: ws[0],
-                            wsNaame: ws[1]
+                            wsName: ws[1]
                         });
                     }
                 })
