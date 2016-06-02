@@ -36,11 +36,11 @@ export class JobService {
     createImportJob(jobIds: string[]) {
         console.log('creating import job', jobIds)
         return this.rpc.call('ujs', 'create_and_start_job',
-            [token, 'bulkimport', jobIds.join(','), {ptype: 'percent'}, ''], true)
+            [token, 'bulkimport', jobIds.join(','), {ptype: 'percent'}, '9999-04-03T08:56:32+0000'], true)
     }
 
-    status(jobId: string) {
-        return this.rpc.call('njs', 'check_job', [jobId], true);
+    checkJob(jobId: string) {
+        return this.rpc.call('njs', 'check_job', [jobId], true)
     }
 
     //unused

@@ -10,31 +10,45 @@
     </button>
 
     <div class="help-text pull-left">Your Upload Status</div>
-
 </div>
 
 
 <card>
+    <div class="pull-right">
+        <button md-raised-button
+            (click)="reload()"
+            [disabled]="loading"
+            color="primary">
+
+            <i *ngIf="!loading" class="material-icons button-icon">refresh</i>
+            <span *ngIf="loading">Loading...</span>
+        </button>
+   </div>
+
+
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Bulk Import ID</th>
                 <th>File Count</th>
-                <th>Started</th>
-                <th>Last Update</th>
+                <th>Submitted</th>
+                <th>Status</th>
+                <th>Options</
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let meta of metaList">
                 <td>{{meta[0]}}</td>
                 <td>{{meta[0].split(',').length}}</td>
-                <td>{{meta[3]}}</td>
-                <td>{{meta[5]}}</td>
+                <td>{{getRelativeTime(meta[3])}}</td>
+                <td>
+                    <div *ngIf="jobStatusByImportId[meta[0]]">
+                        {{jobStatusByImportId[meta[0]].counts | json}}
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>
 
-    <pre>{{status}}</pre>
 
-    <md-progress-circle *ngIf="!metaList" mode="indeterminate"></md-progress-circle>
 </card>
