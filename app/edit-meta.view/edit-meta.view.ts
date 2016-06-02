@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer, ElementRef } from '@angular/core';
-import { ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import { Router, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 import { FtpService } from '../services/ftp.service'
 import { HTTP_PROVIDERS }    from '@angular/http';
@@ -7,7 +7,8 @@ import { HTTP_PROVIDERS }    from '@angular/http';
 import { JobService } from '../services/job.service';
 import { WorkspaceService } from '../services/workspace.service';
 
-import { MdButton } from '@angular2-material/button'
+import { MdButton } from '@angular2-material/button';
+import { Util } from '../services/util';
 
 @Component({
     templateUrl: 'app/edit-meta.view/edit-meta.view.html',
@@ -34,6 +35,9 @@ export class EditMetaView implements OnInit {
 
     importInProgress: boolean = false;
 
+    util = new Util();
+    relativeTime = this.util.relativeTime; // use pipes
+
     exampleSpec = [{
         name: 'Import Name',
         prop: "importName",
@@ -48,12 +52,14 @@ export class EditMetaView implements OnInit {
     // cell interaction
     cellSelection: boolean = false;
 
+
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer,
         private ftp: FtpService,
         private jobService: JobService,
-        private wsService: WorkspaceService) {
+        private wsService: WorkspaceService,
+        private router: Router) {
 
         this.ftp.selectedPath$.subscribe(path => this.selectedPath = path)
     }
@@ -79,6 +85,7 @@ export class EditMetaView implements OnInit {
         let path = this.files[0].path,
             wsName = this.selectedNarrative.wsName;
 
+
         this.jobService.runGenomeTransform(path, wsName)
             .subscribe(res => {
                 console.log('import response', res)
@@ -86,7 +93,7 @@ export class EditMetaView implements OnInit {
                 this.jobService.createImportJob([res])
                     .subscribe(res => {
                         console.log('create import res', res)
-                        this.importInProgress = false;
+                        this.router.navigate(['Status']);
                 })
             })
 

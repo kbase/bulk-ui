@@ -27,3 +27,10 @@ table.edit-sheet input {
 .selected {
     background-color: #E2F3FF;
 }
+
+.check-counter {
+    display: inline-block;
+    position:relative;
+    top: 0;
+    right: 10px;
+}
