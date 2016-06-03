@@ -28,6 +28,11 @@ export class JobService {
         return this.rpc.call('njs', 'run_job', params);
     }
 
+    runGenomeTransforms(filePaths: string[], workspace: string) {
+        var reqs = [];
+        filePaths.forEach(path => reqs.push( this.runGenomeTransform(path, workspace) ) );
+        return Observable.forkJoin(reqs)
+    }
 
     // special method that is not implemented in service
     listImports() {
