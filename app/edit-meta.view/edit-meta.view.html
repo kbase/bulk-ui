@@ -1,5 +1,6 @@
 <div class="top-bar clearfix">
 
+    <!--
     <button md-raised-button
             [routerLink]="['/Selector/FileTable', {'path': selectedPath}]"
             color="primary"
@@ -7,7 +8,7 @@
             <i class="material-icons button-icon">arrow_backward</i>
             Back
     </button>
-
+    -->
 
     <div class="help-text pull-left">
         Select a narrative, edit the associated meta data, and import.
@@ -72,7 +73,7 @@
 </card>
 
 <card *ngIf="!files.length">
-    There are no selected files.  Select some <a [routerLink]="['SelectorView']">here</a>.
+    There are no selected files.  Select some <a [routerLink]="['/Selector/FileTable', {path: ''}]">here</a>.
 </card>
 
 

@@ -1,8 +1,7 @@
 
 
 <card>
-    <h4>Job Details for Import ID {{id}}</h4>
-
+    <h4>Job Details for Import {{id}}</h4>
 
     <table class="table">
         <thead>
@@ -29,5 +28,6 @@
         </tbody>
     </table>
 
-</card>
+    <md-progress-circle *ngIf="loading" mode="indeterminate"></md-progress-circle>
 
+</card>
