@@ -5,6 +5,7 @@ import { SelectorView } from './selector.view/selector.view';
 import { EditMetaView } from './edit-meta.view/edit-meta.view';
 import { AboutView } from './about.view/about.view';
 import { StatusView } from './status.view/status.view';
+import { JobDetailsView } from './job-details.view/job-details.view';
 
 import { ToolbarComponent } from './toolbar/toolbar';
 import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav'
@@ -78,8 +79,7 @@ import { KBaseAuth } from './services/kbase-auth.service';
 })
 
 
-@RouteConfig([
-  {
+@RouteConfig([{
     path: '/...',
     name: 'Selector',
     component: SelectorView
@@ -95,6 +95,10 @@ import { KBaseAuth } from './services/kbase-auth.service';
     path:'/status',
     name: 'Status',
     component: StatusView
+  },{
+    path:'/job-details/:id',
+    name: 'JobDetails',
+    component: JobDetailsView
   }
 ])
 

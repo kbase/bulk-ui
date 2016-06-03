@@ -1,0 +1,33 @@
+
+
+<card>
+    <h4>Job Details for Import ID {{id}}</h4>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Job ID</th>
+                <th>AWE ID</th>
+                <th>Status</th>
+                <th>Submit Time</th>
+                <th>Start Time</th>
+                <th>Finish Time</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let job of jobs">
+                <td>{{job.job_id}}</td>
+                <td>{{job.awe_job_id.split('-')[0]+'...'}}</td>
+                <td>{{job.job_state}}</td>
+
+                <td>{{relativeTime(job.creation_time)}}</td>
+                <td>{{relativeTime(job.exec_start_time)}}</td>
+                <td>{{relativeTime(job.finish_time)}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</card>
+

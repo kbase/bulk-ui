@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { KBaseRpc } from './kbase-rpc.service';
+
 
 // test tokens for ujs calls
 import { token } from '../bulkio-token';
+
 
 
 @Injectable()
@@ -16,7 +18,7 @@ export class JobService {
             method: "genome_transform.genbank_to_genome",
             service_ver: 'dev',
             params: [{
-                genbank_file_path: '/data/bulktest/data/bulktest/'+path,
+                genbank_file_path: '/data/bulktest/data/bulktest'+path,
                 workspace: workspace,
                 genome_id: "NC_003197",
                 contigset_id: "NC_003197ContigSet"
@@ -27,7 +29,8 @@ export class JobService {
     }
 
 
-    listJobs() {
+    // special method that is not implemented in service
+    listImports() {
         let user = 'bulkio';
         console.log('calling list jobs with user:', user)
         return this.rpc.call('ujs', 'list_jobs', [[user], ''], true)
@@ -43,14 +46,30 @@ export class JobService {
         return this.rpc.call('njs', 'check_job', [jobId], true)
     }
 
-    //unused
+    checkJobs(jobIds: string[]) {
+        var reqs = [];
+        jobIds.forEach(jobId => reqs.push( this.checkJob(jobId) ) )
+        return Observable.forkJoin(reqs)
+    }
+
+    // this must be used for the fake jobs that are created to store meta
+    getJobInfo(jobId: string) {
+        return this.rpc.call('ujs', 'get_job_info', [jobId], true)
+    }
+
+    /**
+     *  Unused methods
+     */
     setState(jobId: string){
         return this.rpc.call('ujs', 'set_state', ['bulkupload', jobId, ''], true)
     }
 
-    //unused
     listState() {
         return this.rpc.call('ujs', 'list_state', ['bulkupload', 0], true)
+    }
+
+    getJobParams(jobId: string) {
+        return this.rpc.call('njs', 'get_job_params', [jobId], true)
     }
 
 }

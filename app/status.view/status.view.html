@@ -46,7 +46,7 @@
                         {{jobStatusByImportId[meta[0]].counts | json}}
                     </div>
                 </td>
-                <td></td>
+                <td><a [routerLink]="['/JobDetails', {'id': meta[0]}]">view details</a></td>
             </tr>
         </tbody>
     </table>

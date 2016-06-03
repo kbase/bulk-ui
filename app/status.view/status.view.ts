@@ -18,7 +18,9 @@ import { Util } from '../services/util';
         MdProgressCircle,
         MdButton
     ],
-    providers: [JobService]
+    providers: [
+        JobService
+    ]
 })
 export class StatusView {
     metaList;
@@ -47,18 +49,19 @@ export class StatusView {
         // Fetch import jobs and filter out any jobs with non-leginimate-looking ids
         // next get individual job status
         // Note: a service would be very useful here.
-        this.jobService.listJobs()
+        this.jobService.listImports()
             .subscribe(res => {
-                let realJobs = [];
+                let realImports = [];
                 for (let i=0; i<res.length; i++) {
                     let jobIds = res[i][12].split(',');
 
+                    // ensure valid job ids for testing purposes
                     if (jobIds[0].length !== 24) continue;
 
-                    realJobs.push(res[i]);
+                    realImports.push(res[i]);
                 }
 
-                this.metaList = realJobs;
+                this.metaList = realImports;
                 this.getIndividualJobStatus(this.metaList);
                 //console.log('metaList', this.metaList)
             })
@@ -69,27 +72,21 @@ export class StatusView {
 
         importMetas.forEach(importMeta => {
             let importId = importMeta[0];
-            let jobIds = importMeta[12].split(',')
+            let jobIds = importMeta[12].split(',');
 
-            // ensure valid job ids for testing purposes
-            if (jobIds[0].length !== 24) return;
-
-            var requests = [];
-            jobIds.forEach(jobId => requests.push(this.jobService.checkJob(jobId)) )
-
-            Observable.forkJoin(requests)
+            this.jobService.checkJobs(jobIds)
                 .subscribe(res => {
-                    var counts = {queued: 0, inProgress: 0, completed: 0, suspend: 0};
+                    let counts = {queued: 0, inProgress: 0, completed: 0, suspend: 0};
                     for (var key in res) {
                         let jobStatus = res[key];
                         if (jobStatus.job_state === 'completed')
-                            counts.completed += 1
+                            counts.completed += 1;
                         else if (jobStatus.job_state === 'in-progress')
-                            counts.inProgress += 1
+                            counts.inProgress += 1;
                         else if (jobStatus.job_state === 'completed')
-                            counts.completed += 1
+                            counts.completed += 1;
                         else if (jobStatus.job_state === 'suspend')
-                            counts.suspend += 1
+                            counts.suspend += 1;
                     }
 
                     this.jobStatusByImportId[importId] = {
@@ -98,8 +95,7 @@ export class StatusView {
                     }
 
                     this.loading = false;
-                    //console.log('jobStatusByImportId', this.jobStatusByImportId)
-                });
+                })
         })
     }
 
@@ -107,8 +103,6 @@ export class StatusView {
         let timestamp = Date.parse(time);
         return this.relativeTime(timestamp);
     }
-
-
 
 
 }
