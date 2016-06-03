@@ -47,7 +47,7 @@ export class FtpService {
     // this method should be replaced with service calls
     getFolders(path?: string) {
         path = path ? path : '/'+this.auth.user;
-        return this.http.get(this.ftpUrl+'/list'+path+'?type=folder', this.reqOptions)
+        return this.http.get(this.ftpUrl+'/list/'+path+'?type=folder', this.reqOptions)
                         .map(res =>  res.json() )
                         .do(res => console.log('list files resp', res))
                         .catch(this.handleError);
@@ -56,7 +56,7 @@ export class FtpService {
     // get files and cache
     getFiles(path?: string) {
         path = path ? path : '/'+this.auth.user;
-        return this.http.get(this.ftpUrl+'/list'+path+'?type=file', this.reqOptions)
+        return this.http.get(this.ftpUrl+'/list/'+path+'?type=file', this.reqOptions)
                    .map(res => res.json())
                    .do(files => this.files[path] = files)
                    .catch(this.handleError);

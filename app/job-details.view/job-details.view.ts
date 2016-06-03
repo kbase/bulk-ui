@@ -28,10 +28,7 @@ export class JobDetailsView implements OnInit {
      }
 
     ngOnInit() {
-
-
         this.loadStatus()
-
     }
 
 
