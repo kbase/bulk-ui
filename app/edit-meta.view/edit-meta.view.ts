@@ -91,7 +91,6 @@ export class EditMetaView implements OnInit {
                 let ids = [];
                 for (let key in res ) ids.push(res[key]);
 
-
                 this.jobService.createImportJob(ids)
                     .subscribe(res => {
                         console.log('create import res', res)
@@ -99,7 +98,6 @@ export class EditMetaView implements OnInit {
                 })
 
             })
-
     }
 
     // method to copy selected file data

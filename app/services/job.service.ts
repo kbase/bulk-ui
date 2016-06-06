@@ -57,10 +57,16 @@ export class JobService {
         return Observable.forkJoin(reqs)
     }
 
-    // this must be used for the fake jobs that are created to store meta
+    // this must be used in conjunction with the
+    // fake jobs (which are created to store meta)
     getJobInfo(jobId: string) {
         return this.rpc.call('ujs', 'get_job_info', [jobId], true)
     }
+
+    get_job_logs(jobId: string) {
+        return this.rpc.call('njs', 'get_job_logs', {job_id: jobId, skip_lines: 0})
+    }
+
 
     /**
      *  Unused methods

@@ -34,6 +34,13 @@ a { color: #0088cc; text-decoration: none; }
 a:hover { color: #2a6496; }
 a.no-link { color: #444; }
 
+hr {
+    background-color: #ddd;
+    height: 1px;
+    border: 0;
+}
+
+
 /**
  *  Generic Classes
  */

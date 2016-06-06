@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouteParams, RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { RouteParams, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 import { MdProgressCircle } from '@angular2-material/progress-circle';
 
@@ -9,18 +9,19 @@ import { JobService } from '../services/job.service';
 import { Util } from '../services/util';
 
 @Component({
-    templateUrl: 'app/job-details.view/job-details.view.html',
-    styleUrls: ['app/job-details.view/job-details.view.html'],
+    templateUrl: 'app/import-details.view/import-details.view.html',
+    styleUrls: ['app/import-details.view/import-details.view.css'],
     providers: [
         JobService
     ],
     directives: [
-        MdProgressCircle
+        MdProgressCircle,
+        ROUTER_DIRECTIVES
     ]
 })
 
 
-export class JobDetailsView implements OnInit {
+export class ImportDetailsView implements OnInit {
     id: string;
     loading: boolean = false;
     jobs;
