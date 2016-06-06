@@ -88,12 +88,16 @@ export class EditMetaView implements OnInit {
         this.jobService.runGenomeTransforms(paths, wsName)
             .subscribe(res => {
                 console.log('import response', res)
+                let ids = [];
+                for (let key in res ) ids.push(res[key]);
 
-                this.jobService.createImportJob([res])
+
+                this.jobService.createImportJob(ids)
                     .subscribe(res => {
                         console.log('create import res', res)
                         this.router.navigate(['Status']);
                 })
+
             })
 
     }
