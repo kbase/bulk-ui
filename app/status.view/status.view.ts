@@ -23,7 +23,7 @@ import { Util } from '../services/util';
     ]
 })
 export class StatusView {
-    metaList;
+    imports;
     errorMessage;
 
     jobStatusByImportId = {}
@@ -61,9 +61,17 @@ export class StatusView {
                     realImports.push(res[i]);
                 }
 
-                this.metaList = realImports;
-                this.getIndividualJobStatus(this.metaList);
-                //console.log('metaList', this.metaList)
+                // add unix timestamp
+                realImports.forEach((item, i) => realImports[i].timestamp = Date.parse(realImports[i][3]) )
+
+                // sort asc
+                realImports.sort((a, b) => {
+                    if (a.timestamp < b.timestamp) return 1;
+                    else if (a.timestamp > b.timestamp) return -1;
+                })
+
+                this.imports = realImports;
+                this.getIndividualJobStatus(this.imports);
             })
     }
 

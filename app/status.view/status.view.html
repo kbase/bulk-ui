@@ -37,9 +37,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let meta of metaList">
+            <tr *ngFor="let meta of imports">
                 <td>{{meta[0]}}</td>
-                <td>{{meta[0].split(',').length}}</td>
+                <td>{{meta[12].split(',').length}}</td>
                 <td>{{getRelativeTime(meta[3])}}</td>
                 <td>
                     <div *ngIf="jobStatusByImportId[meta[0]]">

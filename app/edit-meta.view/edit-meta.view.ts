@@ -114,7 +114,6 @@ export class EditMetaView implements OnInit {
             }
         }
 
-        console.log('resulting files', files)
         this.files = files;
     }
 
