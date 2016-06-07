@@ -12,6 +12,7 @@
     width: 100%;
 }
 
+/*
 .import-status {
     height: 50px;
 }
@@ -27,6 +28,7 @@
     bottom: 10px;
     font-size: .9em;
 }
+*/
 
 file-tree {
     display: block;
@@ -34,8 +36,8 @@ file-tree {
 }
 
 .file-tree-container {
-    margin-top: 65px;
-    height: calc(100% - 220px);
+    margin-top: 35px;
+    height: calc(100% - 190px);
     overflow-y: auto;
 }
 

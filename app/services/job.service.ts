@@ -8,7 +8,7 @@ import { token } from '../bulkio-token';
 
 
 interface FileMeta {
-    importName: string;     // only require import name in meta?
+    importName: string; // only require import name in meta?
 }
 
 interface File {
