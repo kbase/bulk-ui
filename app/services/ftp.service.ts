@@ -60,7 +60,7 @@ export class FtpService {
                    .map(res => res.json())
                    .do(files => this.files[path] = files)
                    .catch(this.handleError);
-}
+    }
 
     setPath(path: string) {
         this.selectedPath.next(path);

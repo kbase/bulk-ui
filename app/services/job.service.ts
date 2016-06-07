@@ -7,30 +7,39 @@ import { KBaseRpc } from './kbase-rpc.service';
 import { token } from '../bulkio-token';
 
 
+interface FileMeta {
+    importName: string;     // only require import name in meta?
+}
+
+interface File {
+    path: string;
+    meta: FileMeta;
+}
 
 @Injectable()
 export class JobService {
 
     constructor(private rpc: KBaseRpc) {}
 
-    runGenomeTransform(path: string, workspace: string) {
+    runGenomeTransform(f: File,  workspace: string) {
+        console.log('file', f)
         let params = {
             method: "genome_transform.genbank_to_genome",
             service_ver: 'dev',
             params: [{
-                genbank_file_path: '/data/bulktest/data/bulktest'+path,
+                genbank_file_path: '/data/bulktest/data/bulktest'+f.path,
                 workspace: workspace,
-                genome_id: "NC_003197",
-                contigset_id: "NC_003197ContigSet"
+                genome_id: f.meta.importName,
+                contigset_id: f.meta['contigsetName']
             }]
         }
 
         return this.rpc.call('njs', 'run_job', params);
     }
 
-    runGenomeTransforms(filePaths: string[], workspace: string) {
+    runGenomeTransforms(files: File[], workspace: string) {
         var reqs = [];
-        filePaths.forEach(path => reqs.push( this.runGenomeTransform(path, workspace) ) );
+        files.forEach(file => reqs.push( this.runGenomeTransform(file, workspace) ) );
         return Observable.forkJoin(reqs)
     }
 

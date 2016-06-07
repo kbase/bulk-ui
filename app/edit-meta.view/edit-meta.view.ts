@@ -45,7 +45,7 @@ export class EditMetaView implements OnInit {
         type: 'wsObject'  // need to implemented error handling in UI
     }, {
         name: 'Contig Set',
-        prop: "contigSet",
+        prop: "contigsetName",
         type: 'string'
     }]
 
@@ -82,10 +82,9 @@ export class EditMetaView implements OnInit {
         console.log('starting import!')
         this.importInProgress = true;
 
-        let paths = this.files.map(f => { return f.path; }),
-            wsName = this.selectedNarrative.wsName;
+        let wsName = this.selectedNarrative.wsName;
 
-        this.jobService.runGenomeTransforms(paths, wsName)
+        this.jobService.runGenomeTransforms(this.files, wsName)
             .subscribe(res => {
                 console.log('import response', res)
                 let ids = [];
@@ -96,7 +95,6 @@ export class EditMetaView implements OnInit {
                         console.log('create import res', res)
                         this.router.navigate(['Status']);
                 })
-
             })
     }
 
@@ -105,12 +103,14 @@ export class EditMetaView implements OnInit {
     preprocessData() {
         let files = Object.assign([], this.ftp.selectedFiles);
 
-
         for (let i=0; i < files.length; i++) {
-            let file = files[i];
+            let file = files[i],
+                objName = file.name.replace(/[^\w\-\.\_]/g,'-'),
+                ext = objName.slice(objName.lastIndexOf('.'), objName.length);
 
             file['meta'] = {
-                importName: file.name.replace(/[^\w\-\.\_]/g,'-')
+                importName: objName,
+                contigsetName: objName.replace(ext, '')+'_contigset'
             }
         }
 
