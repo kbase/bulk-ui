@@ -92,6 +92,11 @@ i.icon-small { font-size: .9em; }
 /* color */
 .text-muted { color: #aaa; }
 
+.queued { color: #00BCE0; }
+.in-progress { color: #96750E; }
+.completed { color: #007D1D; }
+.suspended { color: #B30000; }
+
 /* cursor and hover */
 .pointer:hover { cursor: pointer; }
 a.hover > i{ opacity: 0.7; }

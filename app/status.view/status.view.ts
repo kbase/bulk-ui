@@ -12,7 +12,7 @@ import { Util } from '../services/util';
 
 @Component({
     templateUrl: 'app/status.view/status.view.html',
-    styleUrls: ['app/status.view/status.view.html'],
+    styleUrls: ['app/status.view/status.view.css'],
     directives: [
         ROUTER_DIRECTIVES,
         MdProgressCircle,
@@ -87,8 +87,8 @@ export class StatusView {
                     let counts = {queued: 0, inProgress: 0, completed: 0, suspend: 0};
                     for (var key in res) {
                         let jobStatus = res[key];
-                        if (jobStatus.job_state === 'completed')
-                            counts.completed += 1;
+                        if (jobStatus.job_state === 'queued')
+                            counts.queued += 1;
                         else if (jobStatus.job_state === 'in-progress')
                             counts.inProgress += 1;
                         else if (jobStatus.job_state === 'completed')
@@ -112,5 +112,21 @@ export class StatusView {
         return this.relativeTime(timestamp);
     }
 
+    getStatusHtml(id: string) {
+        let counts = this.jobStatusByImportId[id].counts;
+
+        let status = [];
+
+        if (counts.queued)
+            status.push('<span class="queued"><b>'+counts.queued+'</b> queued</span>');
+        if (counts.inProgress)
+            status.push('<span class="in-progress"><b>'+counts.inProgress+'</b> in progress</span>');
+        if (counts.completed)
+            status.push('<span class="completed"><b>'+counts.completed+'</b> completed</span>');
+        if (counts.suspend)
+            status.push('<span class="suspended"><b>'+counts.suspend+'</b> suspended</span>');
+
+        return status.join(', ');
+    }
 
 }

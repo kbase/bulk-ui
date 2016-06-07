@@ -37,13 +37,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let meta of imports">
+            <tr *ngFor="let meta of imports;">
                 <td>{{meta[0]}}</td>
                 <td>{{meta[12].split(',').length}}</td>
                 <td>{{getRelativeTime(meta[3])}}</td>
                 <td>
-                    <div *ngIf="jobStatusByImportId[meta[0]]">
-                        {{jobStatusByImportId[meta[0]].counts | json}}
+                    <div *ngIf="jobStatusByImportId[meta[0]]" >
+                        <span [innerHTML]="getStatusHtml(meta[0])"></span>
                     </div>
                 </td>
                 <td><a [routerLink]="['/ImportDetails', {'id': meta[0]}]">view details</a></td>
