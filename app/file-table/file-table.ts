@@ -55,7 +55,8 @@ export class FileTableComponent implements OnInit {
         this.pathList = this.selectedPath.split('/');
 
         this.selectedFiles = ftp.selectedFiles;
-     }
+    }
+
 
     ngOnInit() {
         console.log('path', this.selectedPath)

@@ -35,7 +35,7 @@ export class JobLogView implements OnInit {
     private loadStatus() {
         this.loading = true;
 
-        this.jobService.get_job_logs(this.id)
+        this.jobService.getJobLogs(this.id)
             .subscribe(res => {
                 res.lines.forEach(line => { this.output += line.line+'\n' });
                 this.loading = false;

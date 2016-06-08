@@ -1,18 +1,16 @@
+const msecPerMinute = 1000 * 60;
+const msecPerHour = this.msecPerMinute * 60;
+const msecPerDay = this.msecPerHour * 24;
+const dayOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+const months = ['Jan','Feb', 'March', 'April', 'May', 'June', 'July',
+                'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+
+const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
 
-export function Util() {
+export class Util {
 
-    var msecPerMinute = 1000 * 60,
-    msecPerHour = msecPerMinute * 60,
-    msecPerDay = msecPerHour * 24,
-    dayOfWeek = {0: 'Sun', 1: 'Mon', 2:'Tues',3:'Wed',
-                    4:'Thurs', 5:'Fri', 6: 'Sat'},
-    months = {0: 'Jan', 1: 'Feb', 2: 'March', 3: 'April', 4: 'May',
-                5:'June', 6: 'July', 7: 'Aug', 8: 'Sept', 9: 'Oct',
-                10: 'Nov', 11: 'Dec'};
-
-
-    this.relativeTime = function(timestamp) {
+    relativeTime(timestamp) : string {
         var date = new Date();
 
         var interval =  date.getTime() - timestamp;
@@ -37,29 +35,30 @@ export function Util() {
             if (hours == 1) return "1 hour ago";
             return hours + " hours ago"
         } else if (days == 1) {
-            var d = new Date(timestamp);
-            var t = d.toLocaleTimeString().split(':');
-            return 'yesterday at ' + t[0]+':'+t[1]+' '+t[2].split(' ')[1]; //check
+            var d = new Date(timestamp),
+                t = d.toLocaleTimeString().split(':');
+            return 'yesterday at ' + t[0]+':'+t[1]+' '+t[2].split(' ')[1];
         } else if (days < 7) {
-            var d = new Date(timestamp);
-            var day = dayOfWeek[d.getDay()]
-            var t = d.toLocaleTimeString().split(':');
-            return day + " at " + t[0]+':'+t[1]+' '+t[2].split(' ')[1]; //check
+            var d = new Date(timestamp),
+                day = dayOfWeek[d.getDay()],
+                t = d.toLocaleTimeString().split(':');
+            return day + " at " + t[0]+':'+t[1]+' '+t[2].split(' ')[1];
         } else  {
             var d = new Date(timestamp);
-            return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); //check
+            return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
         }
     }
 
-    // interesting solution from http://stackoverflow.com/questions
+    // interesting solution based on http://stackoverflow.com/questions
     // /15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript
-    this.readableSize = function(bytes: number) {
-       var units = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-       return 0;
-       //if (bytes === 0) return '0 bytes';
+    readableSize(bytes, decimals) : string  {
+        if (bytes === 0) return '0 Byte';
 
-       //var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-       //return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + units[i];
-    };
+        let k = 1000, // or 1024 for binary
+            dm = decimals + 1 || 2;
+
+        let i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    }
 
 }

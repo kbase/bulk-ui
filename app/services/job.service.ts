@@ -72,7 +72,7 @@ export class JobService {
         return this.rpc.call('ujs', 'get_job_info', [jobId], true)
     }
 
-    get_job_logs(jobId: string) {
+    getJobLogs(jobId: string) {
         return this.rpc.call('njs', 'get_job_logs', {job_id: jobId, skip_lines: 0})
     }
 
