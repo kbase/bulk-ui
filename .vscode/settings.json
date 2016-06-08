@@ -1,0 +1,11 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "editor.scrollBeyondLastLine": false,
+	"files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "config.js": true,
+        "config.js.map": true,
+        "app/**/*.js.map": true,
+        "app/**/*.js": true
+    }
+}
