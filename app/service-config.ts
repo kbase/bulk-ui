@@ -5,5 +5,9 @@ export const config = {
         ws: "https://appdev.kbase.us/services/ws",                   // workspace service
         ftpApi: "http://kbase.us/services/kb-ftp-api/v0"
     },
-    loginUrl: "https://narrative.kbase.us/#login"
+    loginUrl: "https://narrative.kbase.us/#login",
+
+    // true: token will be parsed from cookie
+    // false: token be parsed from app/dev-token.ts and stored in cookie
+    productionMode: true
 }
