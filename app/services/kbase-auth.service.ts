@@ -7,9 +7,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable';
 import { config } from '../service-config';
 import { token as DEV_TOKEN } from '../dev-token';
 
@@ -18,7 +16,7 @@ export class KBaseAuth {
     user: string;
     token: string;
 
-    constructor(private http: Http) {
+    constructor() {
         let token;
         let shouldUseCookie = config.productionMode;
         console.log('Production mode:', shouldUseCookie)
