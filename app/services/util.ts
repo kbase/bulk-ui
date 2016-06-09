@@ -10,6 +10,19 @@ const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
 export class Util {
 
+    getClockTime() {
+        let date = new Date(),
+            h = date.getHours(),
+            m = date.getMinutes(),
+            s = date.getSeconds();
+
+        let hours = h > 12 ? h - 12 : (h === 0 ? 12 : h),
+            mins = m < 10 ? '0'+m : m,
+            secs = s < 10 ? '0'+s : s;
+
+        return hours + ":" + mins + ":" + secs + ' ' + (h >= 12 ? 'PM' : 'AM');
+    }
+
     relativeTime(timestamp) : string {
         var date = new Date();
 
@@ -60,5 +73,4 @@ export class Util {
         let i = Math.floor(Math.log(bytes) / Math.log(k));
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
-
 }

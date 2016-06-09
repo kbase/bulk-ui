@@ -15,13 +15,18 @@
 
 <card>
     <div class="pull-right">
-        <button md-raised-button
+        <span *ngIf="lastUpdated" class="last-updated">
+            Status as of {{lastUpdated}}
+        </span>
+
+        <button md-mini-fab
             (click)="reload()"
             [disabled]="loading"
-            color="primary">
+            color="primary"
+            style="height: 37px;">
 
-            <i *ngIf="!loading" class="material-icons button-icon">refresh</i>
-            <span *ngIf="loading">Loading...</span>
+            <i *ngIf="!loading" class="material-icons md-24">refresh</i>
+            <span *ngIf="loading">...</span>
         </button>
    </div>
 

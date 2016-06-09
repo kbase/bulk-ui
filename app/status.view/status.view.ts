@@ -23,10 +23,12 @@ import { Util } from '../services/util';
     ]
 })
 export class StatusView {
+    lastUpdated;
+
     imports;
     errorMessage;
 
-    jobStatusByImportId = {}
+    jobStatusByImportId = {};
 
     loading: boolean = false;
 
@@ -102,6 +104,7 @@ export class StatusView {
                         counts: counts
                     }
 
+                    this.lastUpdated = this.util.getClockTime();
                     this.loading = false;
                 })
         })
