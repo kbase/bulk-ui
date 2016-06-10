@@ -83,6 +83,7 @@ export class EditMetaView implements OnInit {
         this.importInProgress = true;
 
         let wsName = this.selectedNarrative.wsName;
+        let wsId = this.selectedNarrative.wsId;
 
         this.jobService.runGenomeTransforms(this.files, wsName)
             .subscribe(res => {
@@ -90,7 +91,7 @@ export class EditMetaView implements OnInit {
                 let ids = [];
                 for (let key in res ) ids.push(res[key]);
 
-                this.jobService.createImportJob(ids)
+                this.jobService.createImportJob(ids, wsId)
                     .subscribe(res => {
                         console.log('create import res', res)
                         this.router.navigate(['Status']);
