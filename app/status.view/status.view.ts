@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { JobService } from '../services/job.service'
+import { WorkspaceService } from '../services/workspace.service'
 import { ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 import { MdProgressCircle } from '@angular2-material/progress-circle';
@@ -19,7 +20,8 @@ import { Util } from '../services/util';
         MdButton
     ],
     providers: [
-        JobService
+        JobService,
+        WorkspaceService
     ]
 })
 export class StatusView {
@@ -35,7 +37,8 @@ export class StatusView {
     util = new Util();
     relativeTime = this.util.relativeTime; // use pipes
 
-    constructor(private jobService: JobService) { }
+    constructor(private jobService: JobService,
+                private wsService: WorkspaceService ) { }
 
 
     ngOnInit() {
@@ -48,6 +51,8 @@ export class StatusView {
 
     private loadStatus() {
         this.loading = true;
+        let narrativeObjIds = []
+
         // Fetch import jobs and filter out any jobs with non-leginimate-looking ids
         // next get individual job status
         // Note: a service would be very useful here.
@@ -55,12 +60,26 @@ export class StatusView {
             .subscribe(res => {
                 let realImports = [];
                 for (let i=0; i<res.length; i++) {
-                    let jobIds = res[i][12].split(',');
+                    let jobInfo = res[i];
+                    let jobIds = jobInfo[12].split(',');
+
+                    let parsedId = jobInfo[1].split('.');
+                    let wsId = parsedId[1],
+                        objId = parsedId[3];
 
                     // ensure valid job ids for testing purposes
                     if (jobIds[0].length !== 24) continue;
 
                     realImports.push(res[i]);
+
+                    if (!wsId && !objId) continue;
+
+                    // add narrative destination to list to request
+                    // for actual narrative names.
+                    narrativeObjIds.push({
+                        wsid: wsId,
+                        objid: objId
+                    })
                 }
 
                 // add unix timestamp
@@ -73,13 +92,22 @@ export class StatusView {
                 })
 
                 this.imports = realImports;
+
+                console.log('narrative object ids', narrativeObjIds)
+
+                if (narrativeObjIds.length) {
+                    this.wsService.getObjectInfos(narrativeObjIds)
+                        .subscribe(blah => {
+                            console.log('blah ', blah)
+                        })
+                }
+
                 this.getIndividualJobStatus(this.imports);
             })
     }
 
 
     private getIndividualJobStatus(importMetas) {
-
         importMetas.forEach(importMeta => {
             let importId = importMeta[0];
             let jobIds = importMeta[12].split(',');
@@ -115,6 +143,7 @@ export class StatusView {
         return this.relativeTime(timestamp);
     }
 
+    // special helper to simplify template of "Status" column
     getStatusHtml(id: string) {
         let counts = this.jobStatusByImportId[id].counts;
 
@@ -130,6 +159,19 @@ export class StatusView {
             status.push('<span class="suspended"><b>'+counts.suspend+'</b> suspended</span>');
 
         return status.join(', ');
+    }
+
+    // delete fake import job, along with associated jobs
+    deleteJob(meta) {
+        let jobIds = meta[12].split(',');
+        jobIds.push(meta[0]); // delete all ids, including import job
+
+        console.log('deleting', meta)
+        console.log('ids', jobIds)
+        this.jobService.deleteJobs(jobIds)
+            .subscribe(res => {
+                console.log('res', res)
+            })
     }
 
 }

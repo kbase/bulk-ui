@@ -4,8 +4,9 @@ import { KBaseRpc } from './kbase-rpc.service';
 
 
 // test tokens for ujs calls
-import { token } from '../bulkio-token';
-
+import { token as bulkioToken } from '../bulkio-token';
+//import { token as usertoken } from '../dev-token';
+import { KBaseAuth } from './kbase-auth.service'
 
 interface FileMeta {
     importName: string; // only require import name in meta?
@@ -19,7 +20,10 @@ interface File {
 @Injectable()
 export class JobService {
 
-    constructor(private rpc: KBaseRpc) {}
+    constructor(private rpc: KBaseRpc,
+                private auth: KBaseAuth) {
+
+    }
 
     runGenomeTransform(f: File,  workspace: string) {
         console.log('file', f)
@@ -50,10 +54,11 @@ export class JobService {
         return this.rpc.call('ujs', 'list_jobs', [[user], ''], true)
     }
 
-    createImportJob(jobIds: string[]) {
+    createImportJob(jobIds: string[], wsId: number, narrativeId: number) {
         console.log('creating import job', jobIds)
         return this.rpc.call('ujs', 'create_and_start_job',
-            [token, 'bulkimport', jobIds.join(','), {ptype: 'percent'}, '9999-04-03T08:56:32+0000'], true)
+            [bulkioToken, 'ws.'+wsId+'.obj.'+narrativeId, jobIds.join(','),
+            {ptype: 'percent'}, '9999-04-03T08:56:32+0000'], true)
     }
 
     checkJob(jobId: string) {
@@ -76,6 +81,16 @@ export class JobService {
         return this.rpc.call('njs', 'get_job_logs', {job_id: jobId, skip_lines: 0})
     }
 
+    deleteJob(jobId: string) {
+        // uses special bulkio token
+        return this.rpc.call('ujs', 'force_delete_job', [bulkioToken, jobId], true)
+    }
+
+    deleteJobs(jobIds: string[]) {
+        var reqs = [];
+        jobIds.forEach(id => reqs.push( this.deleteJob(id) ) )
+        return Observable.forkJoin(reqs)
+    }
 
     /**
      *  Unused methods

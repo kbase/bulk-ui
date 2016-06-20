@@ -12,8 +12,8 @@ export class KBaseRpc {
     constructor(private http: Http,
                 private auth: KBaseAuth) {}
 
-    call(service: string, method: string, params?: Object, isOrdered?: boolean) {
-        let headers = new Headers({ 'Authorization': this.auth.token });
+    call(service: string, method: string, params?: Object, isOrdered?: boolean, authToken?) {
+        let headers = new Headers({ 'Authorization': authToken ? authToken : this.auth.token });
         let options = new RequestOptions({ headers: headers });
 
         var args = {

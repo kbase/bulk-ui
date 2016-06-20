@@ -35,6 +35,7 @@
         <thead>
             <tr>
                 <th>Bulk Import ID</th>
+                <th>Narrative</th>
                 <th>File Count</th>
                 <th>Submitted</th>
                 <th>Status</th>
@@ -42,8 +43,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let meta of imports;">
+            <tr *ngFor="let meta of imports">
                 <td>{{meta[0]}}</td>
+                <th></th>
                 <td>{{meta[12].split(',').length}}</td>
                 <td>{{getRelativeTime(meta[3])}}</td>
                 <td>
@@ -51,7 +53,14 @@
                         <span [innerHTML]="getStatusHtml(meta[0])"></span>
                     </div>
                 </td>
-                <td><a [routerLink]="['/ImportDetails', {'id': meta[0]}]">view details</a></td>
+                <td>
+                    <a [routerLink]="['/ImportDetails', {'id': meta[0]}]">
+                        view details
+                    </a>
+                    <a (click)="deleteJob(meta)" class="text-muted pointer">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>
