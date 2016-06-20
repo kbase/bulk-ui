@@ -8,9 +8,10 @@ import { MdProgressCircle } from '@angular2-material/progress-circle';
 import { DefaultSorter } from '../grid/defaultSorter';
 import { DataTable } from '../grid/dataTable';
 
-
 import { FtpService } from '../services/ftp.service';
 import { Util } from '../services/util';
+
+import { config } from '../service-config';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class FileTableComponent implements OnInit {
     selectedPath: string;                  // selected path from routeParams
     files;                                 // list of file meta
     pathList = [];                         // list of folder names
+    error;
 
     allChecked: boolean = false;           // wether or not all items are checked
 
@@ -64,12 +66,17 @@ export class FileTableComponent implements OnInit {
         // if cached, load cached data
         if (this.selectedPath in this.ftp.files)
             this.files = this.ftp.files[this.selectedPath];
-        else
+        else {
             this.ftp
                 .getFiles(this.selectedPath)
-                .subscribe(files => {
-                    this.files = files
-                })
+                .subscribe(
+                    files => this.files = files,
+                    error => {
+                        this.error = `Unfortunately, there's been an issue fetching your files.
+                            You may wish to <a href="`+config.contactUrl+`">contact us</a>.`;
+                    }
+                )
+        }
 
         // unchecked all files on clear event
         this.ftp.selectedFileCount$.subscribe(count => {
