@@ -9,7 +9,7 @@ import { MdButton } from '@angular2-material/button';
 import { Observable } from 'rxjs/Rx';
 
 import { Util } from '../services/util';
-
+import { config } from '../service-config';
 
 @Component({
     templateUrl: 'app/status.view/status.view.html',
@@ -25,14 +25,13 @@ import { Util } from '../services/util';
     ]
 })
 export class StatusView {
-    lastUpdated;
+    lastUpdated: string;
+    loading: boolean = false;
+    narrativeUrl = config.narrativeUrl
 
     imports;
     errorMessage;
-
     jobStatusByImportId = {};
-
-    loading: boolean = false;
 
     util = new Util();
     relativeTime = this.util.relativeTime; // use pipes

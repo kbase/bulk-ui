@@ -6,6 +6,7 @@ export const config = {
         ftpApi: "http://kbase.us/services/kb-ftp-api/v0"
     },
     loginUrl: "https://narrative.kbase.us/#login",
+    narrativeUrl: "https://narrative-ci.kbase.us/narrative",
     contactUrl: "http://kbase.us/contact-us/",
     // true: token will be parsed from cookie
     // false: token be parsed from app/dev-token.ts and stored in cookie

@@ -45,7 +45,11 @@
         <tbody>
             <tr *ngFor="let meta of imports">
                 <td>{{meta[0]}}</td>
-                <th></th>
+                <td>
+                    <a href="{{narrativeUrl}}/{{meta[4]}}" target="_blank">
+                        view narrative
+                    </a>
+                </td>
                 <td>{{meta[12].split(',').length}}</td>
                 <td>{{getRelativeTime(meta[3])}}</td>
                 <td>
