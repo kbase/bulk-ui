@@ -51,7 +51,7 @@
 
 <md-progress-circle *ngIf="!(files || error)" mode="indeterminate"></md-progress-circle>
 
-<div [innerHtml]="error" class="error">
+<div *ngIf="error" [innerHtml]="error" class="error">
     {{error}}
 </div>
 
