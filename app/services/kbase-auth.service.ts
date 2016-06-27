@@ -47,7 +47,11 @@ export class KBaseAuth {
             }
         })
 
-        if (!token) throw ('User token was not found in cookie "kbase_session"');
+        if (!token) {
+            //window.location.href = config.loginUrl +
+            //'?nextrequest={"path":"https://narrative-ci.kbase.us/#login","external":true}'
+            throw ('User token was not found in cookie "kbase_session"');
+        }
 
         return token;
     }
