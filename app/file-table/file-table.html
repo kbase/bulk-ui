@@ -34,7 +34,7 @@
         <tr *ngFor="let file of table.data">
             <td>
                 <md-checkbox
-                    *ngIf="!file.isFolder"
+                    *ngIf="!file.isFolder && file.kbaseType"
                     [checked]="file.checked || allChecked"
                     (change)="toggleItem($event, file)">
                 </md-checkbox>

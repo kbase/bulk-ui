@@ -44,27 +44,17 @@ export class SelectorView implements OnInit {
 
         this.ftp.selectedPath$.subscribe(path => this.selectedPath = path)
         this.ftp.selectedFileCount$.subscribe(count => this.selectedCount = count)
-
     }
 
     ngOnInit() {
-        //this.initList();
         this.selectedCount = this.ftp.selectedFiles.length;
     }
 
-    // initial loading of top level folders
-    initList() {
-        this.ftp.list()
-            .subscribe(folders => this.folders = folders)
-    }
 
     clearSelected() {
         this.selectedFiles = [];
         this.ftp.clearSelected();
     }
 
-    onFolderSelect(folder) {
-        console.log('folder!', folder)
-    }
 
 }

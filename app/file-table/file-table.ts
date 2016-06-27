@@ -32,12 +32,14 @@ import { config } from '../service-config';
 })
 
 export class FileTableComponent implements OnInit {
-    selectedPath: string;                  // selected path from routeParams
-    files;                                 // list of file meta
-    pathList = [];                         // list of folder names
+    selectedPath: string;   // selected path from routeParams
+    files;                  // list of file meta
+    pathList = [];          // list of folder names
+    allowedType: string;    // Once user selectes a file of one type,
+                            // others are filtered out.?
     error;
 
-    allChecked: boolean = false;           // wether or not all items are checked
+    allChecked: boolean = false;    // wether or not all items are checked
 
     selectedFiles;
     selectedCount;

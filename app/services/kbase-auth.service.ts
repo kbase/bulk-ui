@@ -11,12 +11,14 @@ import { Injectable } from '@angular/core';
 import { config } from '../service-config';
 import { token as DEV_TOKEN } from '../dev-token';
 
+import { Router, RouteParams } from '@angular/router-deprecated';
+
 @Injectable()
 export class KBaseAuth {
     user: string;
     token: string;
 
-    constructor() {
+    constructor(private router: Router) {
         let token;
         let shouldUseCookie = config.productionMode;
         console.log('Production mode:', shouldUseCookie)
@@ -30,6 +32,12 @@ export class KBaseAuth {
 
         this.user = token.split('|')[0].replace('un=', '');
         this.token = token;
+        console.log('location', window.location)
+
+        // redirect '/browse/' to 'browse/<user>' on app start
+        let path = window.location.pathname;
+        if (path === '/' || path.split('/')[1] === 'browse')
+            this.router.navigate( ['Selector/FileTable', { path: '/'+this.user }]);
     }
 
     // method to get and parse the token from "kbase_session" cookie

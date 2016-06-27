@@ -37,7 +37,7 @@ export class FtpService {
         let headers = new Headers({ 'Authorization': this.auth.token });
         this.reqOptions = new RequestOptions({ headers: headers });
 
-        this.selectedFolder= {
+        this.selectedFolder = {
             name: auth.user,
             path: '/'+auth.user
         }

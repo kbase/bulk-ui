@@ -13,14 +13,11 @@ import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav'
 
 import { FileTableComponent } from './file-table/file-table';
 
-
 // singletons
 import { HTTP_PROVIDERS }    from '@angular/http';
 import { FtpService } from './services/ftp.service';
 import { KBaseRpc } from './services/kbase-rpc.service';
-
 import { KBaseAuth } from './services/kbase-auth.service';
-
 
 
 @Component({
@@ -81,7 +78,9 @@ import { KBaseAuth } from './services/kbase-auth.service';
 
 
 @RouteConfig([{
-    path: '/...',
+    // See app/services/kbase-auth.service.ts
+    // for redirect to /browse/<username>
+    path: '/browse/...',
     name: 'Selector',
     component: SelectorView
   }, {
