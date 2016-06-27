@@ -12,23 +12,15 @@
     width: 100%;
 }
 
-/*
+
 .import-status {
-    height: 50px;
+    max-width: 25%;
+    display: inline-block;
 }
 
-.import-status .import-count {
-    color: #444;
-    font-weight: 800;
+.table-container {
+    margin-top: 10px;
 }
-
-.view-status {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    font-size: .9em;
-}
-*/
 
 file-tree {
     display: block;

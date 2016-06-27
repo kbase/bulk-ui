@@ -68,7 +68,7 @@ export class FileTableComponent implements OnInit {
             this.files = this.ftp.files[this.selectedPath];
         else {
             this.ftp
-                .getFiles(this.selectedPath)
+                .list(this.selectedPath)
                 .subscribe(
                     files => this.files = files,
                     error => {

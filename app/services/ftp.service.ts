@@ -43,9 +43,16 @@ export class FtpService {
         }
     }
 
+    list(path?: string) {
+        path = path ? path : '/'+this.auth.user;
+        return this.http.get(this.ftpUrl+'/list/'+path, this.reqOptions)
+                        .map(res =>  res.json() )
+                        .do(files => this.files[path] = files)
+                        .catch(this.handleError);
+    }
 
     // this method should be replaced with service calls
-    getFolders(path?: string) {
+    listFolders(path?: string) {
         path = path ? path : '/'+this.auth.user;
         return this.http.get(this.ftpUrl+'/list/'+path+'?type=folder', this.reqOptions)
                         .map(res =>  res.json() )
@@ -54,11 +61,11 @@ export class FtpService {
     }
 
     // get files and cache
-    getFiles(path?: string) {
+    listFiles(path?: string) {
         path = path ? path : '/'+this.auth.user;
         return this.http.get(this.ftpUrl+'/list/'+path+'?type=file', this.reqOptions)
                    .map(res => res.json())
-                   .do(files => this.files[path] = files)
+                   //.do(files => this.files[path] = files)
                    .catch(this.handleError);
     }
 

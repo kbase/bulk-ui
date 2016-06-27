@@ -1,13 +1,5 @@
 
-<div class="side-nav">
-
-    <!--
-    <card class="quota">
-        <h4 class="no-margin">Quota</h4>
-        <progress-bar></progress-bar>
-    </card>
-    -->
-
+<div class="toolbar">
     <card class="import-status">
         <!--
         <a [routerLink]="['/Status']" class="import-count pull-left">
@@ -20,18 +12,6 @@
 
         <a [routerLink]="['/Status']" class="view-status">View status/history</a>
     </card>
-
-    <br>
-
-    <card class="file-tree-container">
-        <file-tree [folders]="folders"
-                   [onSelect]="onFolderSelect"
-                   [selectedPath]="selectedPath">
-        </file-tree>
-    </card>
-</div>
-
-<div class="file-table-container">
 
     <div class="help-text">Select the files you wish to import.</div>
 
@@ -51,9 +31,19 @@
             Continue <i class="material-icons button-icon">arrow_forward</i>
         </button>
     </div>
+</div>
 
-
+<div class="table-container">
     <card class="file-table">
         <router-outlet></router-outlet>
     </card>
 </div>
+
+<!-- uncomment for a folder/file tree viwer
+    <card class="file-tree-container">
+        <file-tree [folders]="folders"
+                   [onSelect]="onFolderSelect"
+                   [selectedPath]="selectedPath">
+        </file-tree>
+    </card>
+-->

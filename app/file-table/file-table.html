@@ -23,6 +23,7 @@
                              aria-label="Select all">
                 </md-checkbox>
             </th>
+            <th><!--icon--></th>
             <th>Name</th>
             <th>Size</th>
             <th>Mod Time</th>
@@ -32,11 +33,25 @@
     <tbody>
         <tr *ngFor="let file of table.data">
             <td>
-                <md-checkbox [checked]="file.checked || allChecked"
-                             (change)="toggleItem($event, file)">
+                <md-checkbox
+                    *ngIf="!file.isFolder"
+                    [checked]="file.checked || allChecked"
+                    (change)="toggleItem($event, file)">
                 </md-checkbox>
             </td>
-            <td>{{file.name}}</td>
+            <td>
+                <i class="material-icons" *ngIf="file.isFolder">folder_open</i>
+                <i class="material-icons" *ngIf="!file.isFolder">insert_drive_file</i>
+            </td>
+            <td>
+                <a *ngIf="file.isFolder" [routerLink]="['FileTable', {'path': file.path}]">
+                    {{file.name}}
+                </a>
+
+                <span *ngIf="!file.isFolder">
+                    {{file.name}}
+                </span>
+            </td>
             <td>{{readableSize(file.size)}}</td>
             <td>{{relativeTime(file.mtime)}}</td>
             <td>no type found</td>
