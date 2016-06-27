@@ -38,7 +38,7 @@ export class FileTreeComponent implements OnInit {
         folder.expanded = !folder.expanded;
 
         if (folder.expanded) {
-            this._ftpService.listFolders(folder.path)
+            this._ftpService.list(folder.path)
                 .subscribe(newFolders => folder.folders = newFolders)
         } else {
             folder.folders = [];

@@ -46,27 +46,21 @@ export class FtpService {
     list(path?: string) {
         path = path ? path : '/'+this.auth.user;
         return this.http.get(this.ftpUrl+'/list/'+path, this.reqOptions)
-                        .map(res =>  res.json() )
+                        .map(res => {
+                            let r = res.json()
+                            r.forEach(file => {
+                                if (file.isFolder) return;
+
+                                let ext = file.name.slice(file.name.lastIndexOf('.')+1);
+
+                                if (ext in this.types)
+                                    file.kbaseType = this.types[ext];
+                            })
+
+                            return r
+                        })
                         .do(files => this.files[path] = files)
                         .catch(this.handleError);
-    }
-
-    // this method should be replaced with service calls
-    listFolders(path?: string) {
-        path = path ? path : '/'+this.auth.user;
-        return this.http.get(this.ftpUrl+'/list/'+path+'?type=folder', this.reqOptions)
-                        .map(res =>  res.json() )
-                        .do(res => console.log('list files resp', res))
-                        .catch(this.handleError);
-    }
-
-    // get files and cache
-    listFiles(path?: string) {
-        path = path ? path : '/'+this.auth.user;
-        return this.http.get(this.ftpUrl+'/list/'+path+'?type=file', this.reqOptions)
-                   .map(res => res.json())
-                   //.do(files => this.files[path] = files)
-                   .catch(this.handleError);
     }
 
     setPath(path: string) {
@@ -100,6 +94,10 @@ export class FtpService {
     private handleError (error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
+    }
+
+    types = {
+        'gbk': 'genome'
     }
 
 }

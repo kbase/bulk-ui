@@ -54,7 +54,7 @@
             </td>
             <td>{{readableSize(file.size)}}</td>
             <td>{{relativeTime(file.mtime)}}</td>
-            <td>no type found</td>
+            <td>{{file.kbaseType ? file.kbaseType : '-'}}</td>
         </tr>
     </tbody>
 

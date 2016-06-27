@@ -48,7 +48,7 @@ export class SelectorView implements OnInit {
     }
 
     ngOnInit() {
-        this.initList();
+        //this.initList();
         this.selectedCount = this.ftp.selectedFiles.length;
     }
 
