@@ -1,6 +1,6 @@
 const msecPerMinute = 1000 * 60;
-const msecPerHour = this.msecPerMinute * 60;
-const msecPerDay = this.msecPerHour * 24;
+const msecPerHour = msecPerMinute * 60;
+const msecPerDay = msecPerHour * 24;
 const dayOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
 const months = ['Jan','Feb', 'March', 'April', 'May', 'June', 'July',
                 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
