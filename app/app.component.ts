@@ -39,7 +39,7 @@ import { KBaseAuth } from './services/kbase-auth.service';
     template: `
         <md-sidenav-layout>
 
-            <md-sidenav #sidenav mode="side" id="kbase-sidenav">
+            <md-sidenav #sidenav mode="over" id="kbase-sidenav">
                 <ul class="list-unstyled">
                     <li>
                         <a href="#narrativemanager/start">
