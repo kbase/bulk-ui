@@ -1,14 +1,26 @@
-
 pre {
-    white-space: pre-wrap !important;
-    white-space: -moz-pre-wrap !important;
-    white-space: -pre-wrap !important;
-    white-space: -o-pre-wrap !important;
-    word-wrap: break-word !important;
+    background-color: #fff;
+    line-height: 0;
+    counter-reset: line;
+    white-space: pre-wrap;
 }
 
 
 card.job-log {
     padding: 0 20px;
+}
 
+pre line {
+    display: block;
+    line-height: 1.5em;
+}
+
+pre line::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    border-right: 1px solid #ddd;
+    padding: 0 0.5em;
+    margin-right: 0.5em;
+    color: #888;
 }

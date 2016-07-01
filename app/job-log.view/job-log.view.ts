@@ -22,7 +22,7 @@ import { JobService } from '../services/job.service';
 export class JobLogView implements OnInit {
     loading: boolean = false;
     id: string;
-    output: string = '';
+    output = [];
 
     constructor(params: RouteParams, private jobService: JobService) {
         this.id = params.get('id');
@@ -37,7 +37,9 @@ export class JobLogView implements OnInit {
 
         this.jobService.getJobLogs(this.id)
             .subscribe(res => {
-                res.lines.forEach(line => { this.output += line.line+'\n' });
+                res.lines.forEach(line => {
+                    this.output.push( line.line+'\n' );
+                });
                 this.loading = false;
             })
     }

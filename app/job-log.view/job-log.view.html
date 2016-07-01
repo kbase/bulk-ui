@@ -6,7 +6,9 @@
 
     <br>
 
-    <pre>{{output}}</pre>
+    <pre>
+        <line *ngFor="let line of output">{{line}}</line>
+    </pre>
 
     <md-progress-circle *ngIf="loading" mode="indeterminate"></md-progress-circle>
 
