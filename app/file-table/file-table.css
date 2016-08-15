@@ -23,6 +23,18 @@ table > tbody > tr > td {
     padding: 10px;
 }
 
+tr.disabled {
+    color: #bbb;
+}
+
 .no-files-found {
     margin: 10px;
+}
+
+.tiny-col {
+    width: 1px;
+}
+
+.file-icon {
+    font-size: 2.0em;
 }

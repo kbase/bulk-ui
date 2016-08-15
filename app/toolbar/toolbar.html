@@ -12,10 +12,22 @@
     </a>
 </logo>
 
-<a [routerLink]="['/Selector/FileTable', {path: ''}]" class="app-name">Bulk Importer</a>
+<span class="nav-btns">
+    <a [routerLink]="['/intro']" class="app-name">Bulk Importer</a>
+
+    <button md-button [routerLink]="['/browse', user]" class="nav-btn">
+        <i class="material-icons">folder_open</i><bR>
+        Browse
+    </button>
+
+    <button md-button [routerLink]="['/status']" class="nav-btn">
+        <i class="material-icons">access_time</i><br>
+        View Status
+    </button>
+</span>
 
 <nav class="right-side-nav">
-    <a [routerLink]="['/About']">
+    <a [routerLink]="['/about']">
         About
     </a>
     <a href="https://narrative.kbase.us/#login">

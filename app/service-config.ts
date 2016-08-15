@@ -3,7 +3,7 @@ export const config = {
         njs: "https://ci.kbase.us/services/njs_wrapper",
         ujs: "https://ci.kbase.us/services/userandjobstate",
         ws: "https://ci.kbase.us/services/ws",                   // workspace service
-        ftpApi: "http://kbase.us/services/kb-ftp-api/v0"
+        ftpApi: "https://ci.kbase.us/services/kb-ftp-api/v0"
     },
     loginUrl: "https://narrative.kbase.us/#login",
     narrativeUrl: "https://narrative-ci.kbase.us/narrative",

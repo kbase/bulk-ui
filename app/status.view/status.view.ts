@@ -1,10 +1,12 @@
 import { Component} from '@angular/core';
 import { JobService } from '../services/job.service'
 import { WorkspaceService } from '../services/workspace.service'
-import { ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES} from '@angular/router';
+import {Location} from '@angular/common';
 
 import { MdProgressCircle } from '@angular2-material/progress-circle';
 import { MdButton } from '@angular2-material/button';
+//import { MdRipple } from '@angular2-material/core/core';
 
 import { Observable } from 'rxjs/Rx';
 
@@ -17,11 +19,13 @@ import { config } from '../service-config';
     directives: [
         ROUTER_DIRECTIVES,
         MdProgressCircle,
-        MdButton
+        MdButton,
+        //MdRipple
     ],
     providers: [
         JobService,
-        WorkspaceService
+        WorkspaceService,
+        Location
     ]
 })
 export class StatusView {
@@ -37,7 +41,8 @@ export class StatusView {
     relativeTime = this.util.relativeTime; // use pipes
 
     constructor(private jobService: JobService,
-                private wsService: WorkspaceService ) { }
+                private wsService: WorkspaceService,
+                private _location: Location) { }
 
 
     ngOnInit() {
@@ -173,4 +178,7 @@ export class StatusView {
             })
     }
 
+    goBack() {
+        this._location.back()
+    }
 }

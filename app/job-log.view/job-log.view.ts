@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouteParams, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 
 import { MdProgressCircle } from '@angular2-material/progress-circle';
 
@@ -24,8 +24,8 @@ export class JobLogView implements OnInit {
     id: string;
     output = [];
 
-    constructor(params: RouteParams, private jobService: JobService) {
-        this.id = params.get('id');
+    constructor(route: ActivatedRoute, private jobService: JobService) {
+        route.params.subscribe(params => this.id = params['id'] )
      }
 
     ngOnInit() {

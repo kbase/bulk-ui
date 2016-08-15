@@ -9,9 +9,8 @@
 import { Injectable } from '@angular/core';
 
 import { config } from '../service-config';
-import { token as DEV_TOKEN } from '../dev-token';
 
-import { Router, RouteParams } from '@angular/router-deprecated';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class KBaseAuth {
@@ -26,18 +25,28 @@ export class KBaseAuth {
         if (shouldUseCookie)
             token = this.getToken()
         else {
-            document.cookie = 'kbase_session='+DEV_TOKEN;
             token = this.getToken();
+        }
+
+        if (!token) {
+            //window.location.href = config.loginUrl +
+            //'?nextrequest={"path":"https://narrative-ci.kbase.us/#login","external":true}'
+
+            console.log('no token', 'attempting to redirect')
+
+            return
+            //throw ('User token was not found in cookie "kbase_session"');
         }
 
         this.user = token.split('|')[0].replace('un=', '');
         this.token = token;
-        console.log('location', window.location)
+        console.log('token', this.token)
 
         // redirect '/browse/' to 'browse/<user>' on app start
         let path = window.location.pathname;
-        if (path === '/' || path.split('/')[1] === 'browse')
-            this.router.navigate( ['Selector/FileTable', { path: '/'+this.user }]);
+        console.log('path!', path)
+        //if (path === '/' || path.split('/')[1] === 'browse')
+        //    this.router.navigate( ['Selector/FileTable', { path: '/'+this.user }]);
     }
 
     // method to get and parse the token from "kbase_session" cookie
@@ -55,18 +64,15 @@ export class KBaseAuth {
             }
         })
 
-        if (!token) {
-            //window.location.href = config.loginUrl +
-            //'?nextrequest={"path":"https://narrative-ci.kbase.us/#login","external":true}'
-            throw ('User token was not found in cookie "kbase_session"');
-        }
-
         return token;
     }
 
     decodeToken(sessionString: string) {
+        console.log('sessionString', sessionString)
+
+
         let s = sessionString,
-            encodedToken = s.slice(s.indexOf('token'), s.length);
+        encodedToken = s.slice(s.indexOf('token'), s.length);
 
         let token = decodeURIComponent(encodedToken).split('=')[1]
             .replace(/EQUALSSIGN/g, '=').replace(/PIPESIGN/g, '|');
@@ -75,5 +81,11 @@ export class KBaseAuth {
     }
 
     logout() {}
+
+    isLoggedIn() {
+        if (this.token) return true;
+        else return false
+    }
+
 
 }

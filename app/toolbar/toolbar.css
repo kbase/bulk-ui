@@ -18,7 +18,7 @@ logo {
 .app-name {
     color: #333;
     font-size: 1.4em;
-    margin: 20px 0 0 40px;
+    margin: 20px 20px 0 40px;
     float: left;
 }
 
@@ -52,4 +52,17 @@ nav.right-side-nav > a > i.material-icons {
     position: relative;
     bottom: 3px;
     left: 10px;
+}
+
+
+.nav-btns button {
+    margin-top: 0px;
+    color: #0088cc;
+}
+
+
+.nav-btns button i {
+    font-size: 2.1em;
+    position: relative;
+    bottom: -10px;
 }

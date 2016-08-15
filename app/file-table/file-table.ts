@@ -1,43 +1,48 @@
 
 import { Component, OnInit} from '@angular/core';
-import { RouteParams, RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import { ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
 
 import { MdCheckbox } from '@angular2-material/checkbox';
 import { MdProgressCircle } from '@angular2-material/progress-circle';
 
 import { DefaultSorter } from '../grid/defaultSorter';
 import { DataTable } from '../grid/dataTable';
+import { DataTableService } from '../grid/dataTable.service';
 
 import { FtpService } from '../services/ftp.service';
 import { Util } from '../services/util';
+import { Encode } from '../services/pipes'
 
 import { config } from '../service-config';
 
 
 @Component({
-  selector: 'file-table',
-  templateUrl: 'app/file-table/file-table.html',
-  styleUrls: ['app/file-table/file-table.css'],
-  directives: [
-    ROUTER_DIRECTIVES,
-    MdCheckbox,
-    MdProgressCircle,
+    selector: 'file-table',
+    templateUrl: 'app/file-table/file-table.html',
+    styleUrls: ['app/file-table/file-table.css'],
+    directives: [
+        ROUTER_DIRECTIVES,
+        MdCheckbox,
+        MdProgressCircle,
 
-    DataTable,
-    DefaultSorter
-  ],
-  providers: [
-    DataTable
-  ]
+        DataTable,
+        DefaultSorter
+    ],
+    providers: [
+        DataTable,
+        DataTableService
+    ],
+    pipes: [Encode]
 })
 
 export class FileTableComponent implements OnInit {
-    selectedPath: string;   // selected path from routeParams
-    files;                  // list of file meta
-    pathList = [];          // list of folder names
-    allowedType: string;    // Once user selectes a file of one type,
-                            // others are filtered out.?
+    files;                          // list of file meta
+    pathList = [];                  // list of folder names
+    allowedType: string;            // Once user selects a file of one type,
+                                    // others are filtered out.?  to be removed
     error;
+
+    selectedType;                          // selected type to upload
 
     allChecked: boolean = false;    // wether or not all items are checked
 
@@ -48,29 +53,32 @@ export class FileTableComponent implements OnInit {
     relativeTime = this.util.relativeTime; // use pipes
     readableSize = this.util.readableSize; // use pipes
 
-    //sorter = new Sorter();
-    sortedCol: string;
-
-    constructor(
-        private routeParams: RouteParams,
-        private ftp: FtpService) {
-
-        this.selectedPath = decodeURI(routeParams.get('path') );
-        this.pathList = this.selectedPath.split('/');
+    constructor(private router: ActivatedRoute,
+                private ftp: FtpService) {
 
         this.selectedFiles = ftp.selectedFiles;
     }
 
 
     ngOnInit() {
-        console.log('path', this.selectedPath)
+        this.router.params.subscribe(params => {
+            let path = decodeURIComponent( params['path'] );
+            path = path[0] === '/' ? path : '/'+path;
+            this.pathList = path.split('/');
+            this.loadData(path);
+        })
+    }
+
+    loadData(path) {
+        this.ftp.selectedType$.subscribe(type => this.selectedType = type)
+
 
         // if cached, load cached data
-        if (this.selectedPath in this.ftp.files)
-            this.files = this.ftp.files[this.selectedPath];
+        if (path in this.ftp.files)
+            this.files = this.ftp.files[path];
         else {
             this.ftp
-                .list(this.selectedPath)
+                .list(path)
                 .subscribe(
                     files => this.files = files,
                     error => {
@@ -102,12 +110,5 @@ export class FileTableComponent implements OnInit {
 
         this.allChecked = !this.allChecked;
     }
-
-    /*
-    sort(key) {
-        console.log('sorting')
-        this.sorter.sort(key, this.files);
-        this.sortedCol = key;
-    }*/
 
 }

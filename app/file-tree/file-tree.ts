@@ -1,5 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
-import { Router, RouteParams, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 
 import { FtpService } from '../services/ftp.service';
 import { Folder } from '../services/folder';
@@ -25,7 +25,6 @@ export class FileTreeComponent implements OnInit {
     selectedFolder: Folder;
 
     constructor(
-        private _routeParams: RouteParams,
         private _ftpService: FtpService) {
 
     }

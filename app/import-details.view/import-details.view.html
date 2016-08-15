@@ -26,7 +26,7 @@
                 <td>{{relativeTime(job.creation_time)}}</td>
                 <td>{{relativeTime(job.exec_start_time)}}</td>
                 <td>{{relativeTime(job.finish_time)}}</td>
-                <td><a [routerLink]="['/JobLog', {'id': job.job_id}]">view log</a></td>
+                <td><a [routerLink]="['/job-log', job.job_id]">view log</a></td>
             </tr>
         </tbody>
     </table>

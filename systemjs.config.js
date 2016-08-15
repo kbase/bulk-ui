@@ -55,6 +55,8 @@
     '@angular/compiler',
     '@angular/core',
     '@angular/http',
+    '@angular/router',
+    '@angular/forms',
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
     '@angular/router-deprecated',

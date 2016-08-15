@@ -1,13 +1,15 @@
 
 <div>
-
+    <!--
     <button md-raised-button
-            [routerLink]="['/Selector/FileTable', {path: ''}]"
+            [routerLink]="['/browse/', {path: ''}]"
+            (click)="goBack()"
             color="primary"
             class="back-button inline">
             <i class="material-icons button-icon">arrow_backward</i>
             Import New Data
     </button>
+    -->
 
     <div class="help-text inline">Your Upload Status</div>
 </div>
@@ -58,7 +60,7 @@
                     </div>
                 </td>
                 <td>
-                    <a [routerLink]="['/ImportDetails', {'id': meta[0]}]">
+                    <a [routerLink]="['/import-details', meta[0]]">
                         view details
                     </a>
                     <a (click)="deleteJob(meta)" class="text-muted pointer">

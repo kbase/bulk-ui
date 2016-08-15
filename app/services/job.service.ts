@@ -47,6 +47,31 @@ export class JobService {
         return Observable.forkJoin(reqs)
     }
 
+    runReadsImport(f: File,  workspace: string) {
+        console.log('file', f)
+        let params = {
+            method: "genome_transform.reads_to_assembly",
+            service_ver: 'dev',
+            params: [{
+                workspace : 'janakakbase:1464032798535',
+                reads_id: 'TestFrag',
+                reads_type: 'PairedEndLibrary',
+                file_path_list: ["/kb/module/data/frag_1.fastq","/kb/module/data/frag_2.fastq"],
+                insert_size: 0,
+                std_dev: 0,
+            }]
+        }
+
+        return this.rpc.call('njs', 'run_job', params);
+    }
+
+
+    runReadsImports(files: File[], workspace: string) {
+        var reqs = [];
+        files.forEach(file => reqs.push( this.runReadsImport(file, workspace) ) );
+        return Observable.forkJoin(reqs)
+    }
+
     // special method that is not implemented in service
     listImports() {
         let user = 'bulkio';

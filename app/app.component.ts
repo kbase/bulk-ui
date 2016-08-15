@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+//import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { SelectorView } from './selector.view/selector.view';
 import { EditMetaView } from './edit-meta.view/edit-meta.view';
@@ -7,6 +8,7 @@ import { AboutView } from './about.view/about.view';
 import { StatusView } from './status.view/status.view';
 import { ImportDetailsView } from './import-details.view/import-details.view';
 import { JobLogView } from './job-log.view/job-log.view';
+//import { DevLoginView } from './dev-login.view/dev-login.view';
 
 import { ToolbarComponent } from './toolbar/toolbar';
 import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav'
@@ -39,12 +41,12 @@ import { KBaseAuth } from './services/kbase-auth.service';
             <md-sidenav #sidenav mode="over" id="kbase-sidenav">
                 <ul class="list-unstyled">
                     <li>
-                        <a href="#narrativemanager/start">
+                        <a href="/#narrativemanager/start">
                             <i class="icon-file"></i> Narrative
                         </a>
                     </li>
                     <li>
-                        <a href="#appcatalog">
+                        <a href="/#appcatalog">
                         <i class="icon-book"></i> App Catalog</a>
                     </li>
                     <li>
@@ -52,7 +54,7 @@ import { KBaseAuth } from './services/kbase-auth.service';
                         <i class="icon-search"></i> Search</a>
                     </li>
                     <li>
-                        <a href="#dashboard">
+                        <a href="/#dashboard">
                         <i class="icon-tachometer"></i> Dashbaord</a>
                     </li>
                     <li><hr class="no-margin"></li>
@@ -77,34 +79,6 @@ import { KBaseAuth } from './services/kbase-auth.service';
 })
 
 
-@RouteConfig([{
-    // See app/services/kbase-auth.service.ts
-    // for redirect to /browse/<username>
-    path: '/browse/...',
-    name: 'Selector',
-    component: SelectorView
-  }, {
-    path: '/about',
-    name: 'About',
-    component: AboutView,
-  }, {
-    path:'/edit-meta',
-    name: 'EditMeta',
-    component: EditMetaView
-  }, {
-    path:'/status',
-    name: 'Status',
-    component: StatusView
-  },{
-    path:'/import-details/:id',
-    name: 'ImportDetails',
-    component: ImportDetailsView
-  }, {
-    path:'/job-log/:id',
-    name: 'JobLog',
-    component: JobLogView
-  }
-])
 
 export class AppComponent {
 
