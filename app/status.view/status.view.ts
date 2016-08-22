@@ -99,13 +99,6 @@ export class StatusView {
 
                 console.log('narrative object ids', narrativeObjIds)
 
-                if (narrativeObjIds.length) {
-                    this.wsService.getObjectInfos(narrativeObjIds)
-                        .subscribe(blah => {
-                            console.log('blah ', blah)
-                        })
-                }
-
                 this.getIndividualJobStatus(this.imports);
             })
     }

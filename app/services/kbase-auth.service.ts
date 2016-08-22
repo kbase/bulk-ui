@@ -40,11 +40,10 @@ export class KBaseAuth {
 
         this.user = token.split('|')[0].replace('un=', '');
         this.token = token;
-        console.log('token', this.token)
+        console.log('token', String(this.token))
 
         // redirect '/browse/' to 'browse/<user>' on app start
-        let path = window.location.pathname;
-        console.log('path!', path)
+        //let path = window.location.pathname;
         //if (path === '/' || path.split('/')[1] === 'browse')
         //    this.router.navigate( ['Selector/FileTable', { path: '/'+this.user }]);
     }
@@ -68,9 +67,6 @@ export class KBaseAuth {
     }
 
     decodeToken(sessionString: string) {
-        console.log('sessionString', sessionString)
-
-
         let s = sessionString,
         encodedToken = s.slice(s.indexOf('token'), s.length);
 

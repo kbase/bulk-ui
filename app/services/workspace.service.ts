@@ -6,9 +6,8 @@ import { KBaseAuth } from './kbase-auth.service';
 @Injectable()
 export class WorkspaceService {
 
-    constructor(private rpc: KBaseRpc, private auth: KBaseAuth) {
-        console.log('workspace service invoked')
-
+    constructor(private rpc: KBaseRpc,
+                private auth: KBaseAuth) {
     }
 
 

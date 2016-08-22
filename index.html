@@ -3,9 +3,11 @@
     <base href="/">
 
     <title>KBase Bulk Upload</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 
+    <link rel="stylesheet" href="loading.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 
@@ -24,13 +26,18 @@
 
     <!-- 2. Configure SystemJS -->
     <script>
-
       System.import('app').catch(function(err){ console.error(err);  });
     </script>
   </head>
 
   <!-- 3. Display the application -->
   <body>
-    <my-app>Loading...</my-app>
+    <my-app>
+      <div style="height: 100%; display: flex; align-items: center; justify-content: center;">
+        <svg class="material-spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+          <circle class="material-loading" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+      </div>
+    </my-app>
   </body>
 </html>

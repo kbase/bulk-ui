@@ -1,24 +1,29 @@
 
 <div>
-    <button md-raised-button
+    <a md-raised-button
         href="https://www.globus.org/app/transfer?destination_id=3aca022a-5e5b-11e6-8309-22000b97daec&destination_path=%2F&origin_id=3aca022a-5e5b-11e6-8309-22000b97daec&origin_path=%2F"
         target="_blank"
         color="primary"
-        class="pull-left">
+        class="md-primary pull-left">
         <i class="material-icons button-icon">cloud_upload</i>
         Upload with Globus Online
-    </button>
+    </a>
 
     <div class="help-text" *ngIf="!selectedType.name">
         or, select a type to import:
     </div>
 
-    <div class="help-text" *ngIf="selectedType.name == 'Reads'" >
-        Next, add 1 or 2 (paired) reads at a time as sets.
-    </div>
 
     <div class="help-text" *ngIf="selectedType.name == 'Genomes'" >
         Next, select fasta files from below to import.
+    </div>
+
+    <div class="help-text" *ngIf="selectedType.name == 'Single-end Reads'" >
+        Next, select single-end reads from below to import.
+    </div>
+
+    <div class="help-text" *ngIf="selectedType.name == 'Paired-end Reads'" >
+        Next, add 2 paired-end reads at a time.
     </div>
 
 
@@ -32,7 +37,7 @@
     <div class="pull-right">
 
         <div class="check-counter" *ngIf="selectedType.setsAllowed">
-            {{selectedSetCount ? selectedSetCount : 0}} sets added
+            {{selectedSetCount ? selectedSetCount : 0}} set{{selectedSetCount > 1 ? 's' : ''}} added
             <span *ngIf="selectedSetCount">
                 (<a (click)="clearSelectedSets()" class="pointer">clear</a>)
             </span>

@@ -65,8 +65,8 @@ export class FtpService {
                     else files.push(file);
                 })
                 // crud sorting, for now
-                folders.sort(function(a, b) {return a.mtime - b.mtime; })
-                files.sort(function(a, b) { return a.mtime - b.mtime; })
+                folders.sort((a, b) => {return a.mtime - b.mtime; })
+                files.sort((a, b) => { return a.mtime - b.mtime; })
 
                 return folders.concat(files);
             })
@@ -102,7 +102,6 @@ export class FtpService {
     }
 
     addSet() {
-        console.log('attempting to add set', this.selectedFiles)
         if (!this.selectedFiles.length) return;
 
         this.selectedSets.push(this.selectedFiles);

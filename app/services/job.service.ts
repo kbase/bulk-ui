@@ -20,6 +20,8 @@ interface File {
 @Injectable()
 export class JobService {
 
+    ftpRoot= '/data/bulktest';
+
     constructor(private rpc: KBaseRpc,
                 private auth: KBaseAuth) {
 
@@ -31,7 +33,7 @@ export class JobService {
             method: "genome_transform.genbank_to_genome",
             service_ver: 'dev',
             params: [{
-                genbank_file_path: '/data/bulktest/data/bulktest'+f.path,
+                genbank_file_path: this.ftpRoot+f.path,
                 workspace: workspace,
                 genome_id: f.meta.importName,
                 contigset_id: f.meta['contigsetName']
@@ -53,14 +55,16 @@ export class JobService {
             method: "genome_transform.reads_to_assembly",
             service_ver: 'dev',
             params: [{
-                workspace : 'janakakbase:1464032798535',
-                reads_id: 'TestFrag',
-                reads_type: 'PairedEndLibrary',
-                file_path_list: ["/kb/module/data/frag_1.fastq","/kb/module/data/frag_2.fastq"],
-                insert_size: 0,
-                std_dev: 0,
+                workspace : workspace,              //'janakakbase:1464032798535',
+                reads_id:  f.meta.importName,       //'TestFrag',
+                reads_type: f['paths'] ? 'PairedEndLibrary' : 'SingleEndLibrary',
+                file_path_list: f['paths'] ? f['paths'] : [this.ftpRoot+f.path],   //["/kb/module/data/frag_1.fastq","/kb/module/data/frag_2.fastq"],
+                insert_size: f.meta['insert_size'],
+                std_dev: f.meta['std_dev'],
+                sra: f.meta['sra'] ? "1" : "0"  // expects strings instead of booleans
             }]
         }
+
 
         return this.rpc.call('njs', 'run_job', params);
     }
