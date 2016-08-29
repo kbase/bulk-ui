@@ -4,7 +4,7 @@
 <breadcrumbs>
     <span *ngFor="let folder of pathList; let i = index">
         <a *ngIf="i < pathList.length-1"
-           [routerLink]="['FileTable', {'path': pathList.slice(0,i+1).join('/')}]">
+           [routerLink]="['/browse', pathList.slice(0,i+1).join('/') | encode ]">
             {{folder}}
         </a>
         {{i == pathList.length-1 ? folder : ''}}
@@ -16,35 +16,35 @@
 <table [dTable]="files" #table="dataTable" style="width: 100%;" >
     <thead>
         <tr>
-            <th>
+            <th *ngIf="selectedType">
                 <md-checkbox *ngIf="files"
-                             [checked]="allChecked"
-                             (click)="toggleCheckAll($event)"
-                             aria-label="Select all">
+                            [checked]="allChecked"
+                            (click)="toggleCheckAll($event)"
+                            aria-label="Select all">
                 </md-checkbox>
             </th>
             <th><!--icon--></th>
             <th>Name</th>
             <th>Size</th>
             <th>Mod Time</th>
-            <th>Type</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let file of table.data">
-            <td>
+            <!--  [ngClass]="{disabled: (selectedType.allowedType == 'folder' && !file.isFolder) || (selectedType.allowedType == 'file' && file.isFolder)}"-->
+            <td *ngIf="selectedType" class="tiny-col">
                 <md-checkbox
-                    *ngIf="!file.isFolder && file.kbaseType"
+                    *ngIf="!file.isFolder"
                     [checked]="file.checked || allChecked"
                     (change)="toggleItem($event, file)">
                 </md-checkbox>
             </td>
-            <td>
-                <i class="material-icons" *ngIf="file.isFolder">folder_open</i>
-                <i class="material-icons" *ngIf="!file.isFolder">insert_drive_file</i>
+            <td class="tiny-col">
+                <i class="material-icons file-icon" *ngIf="file.isFolder">folder_open</i>
+                <i class="material-icons file-icon" *ngIf="!file.isFolder">insert_drive_file</i>
             </td>
             <td>
-                <a *ngIf="file.isFolder" [routerLink]="['FileTable', {'path': file.path}]">
+                <a *ngIf="file.isFolder" [routerLink]="['/browse', file.path | encode]">
                     {{file.name}}
                 </a>
 
@@ -52,9 +52,17 @@
                     {{file.name}}
                 </span>
             </td>
-            <td>{{readableSize(file.size)}}</td>
-            <td>{{relativeTime(file.mtime)}}</td>
-            <td>{{file.kbaseType ? file.kbaseType : '-'}}</td>
+            <td>{{file.size | readableSize}}</td>
+            <td>
+                <span *ngIf="file.uploadProgress">
+                    <progress-bar>
+                        <div [style.width]="file.uploadProgress+'%'"></div>
+                    </progress-bar>
+                </span>
+                <span *ngIf="!file.uploadProgress" >
+                    {{file.mtime ? (file.mtime|elapsedTime)  : 'starting upload...'}}
+                </span>
+            </td>
         </tr>
     </tbody>
 

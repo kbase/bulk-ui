@@ -1,14 +1,17 @@
 import { Component} from '@angular/core';
 import { JobService } from '../services/job.service'
 import { WorkspaceService } from '../services/workspace.service'
-import { ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES} from '@angular/router';
+import {Location} from '@angular/common';
 
 import { MdProgressCircle } from '@angular2-material/progress-circle';
 import { MdButton } from '@angular2-material/button';
+//import { MdRipple } from '@angular2-material/core/core';
 
 import { Observable } from 'rxjs/Rx';
 
 import { Util } from '../services/util';
+import { ElapsedTime } from '../services/pipes';
 import { config } from '../service-config';
 
 @Component({
@@ -17,11 +20,17 @@ import { config } from '../service-config';
     directives: [
         ROUTER_DIRECTIVES,
         MdProgressCircle,
-        MdButton
+        MdButton,
+        //MdRipple
     ],
     providers: [
         JobService,
-        WorkspaceService
+        WorkspaceService,
+        Location,
+        Util
+    ],
+    pipes: [
+        ElapsedTime
     ]
 })
 export class StatusView {
@@ -33,11 +42,11 @@ export class StatusView {
     errorMessage;
     jobStatusByImportId = {};
 
-    util = new Util();
-    relativeTime = this.util.relativeTime; // use pipes
 
     constructor(private jobService: JobService,
-                private wsService: WorkspaceService ) { }
+                private wsService: WorkspaceService,
+                private _location: Location,
+                private util: Util) {}
 
 
     ngOnInit() {
@@ -94,13 +103,6 @@ export class StatusView {
 
                 console.log('narrative object ids', narrativeObjIds)
 
-                if (narrativeObjIds.length) {
-                    this.wsService.getObjectInfos(narrativeObjIds)
-                        .subscribe(blah => {
-                            console.log('blah ', blah)
-                        })
-                }
-
                 this.getIndividualJobStatus(this.imports);
             })
     }
@@ -139,7 +141,7 @@ export class StatusView {
 
     getRelativeTime(time) {
         let timestamp = Date.parse(time);
-        return this.relativeTime(timestamp);
+        return new ElapsedTime().transform(timestamp);
     }
 
     // special helper to simplify template of "Status" column
@@ -173,4 +175,7 @@ export class StatusView {
             })
     }
 
+    goBack() {
+        this._location.back()
+    }
 }

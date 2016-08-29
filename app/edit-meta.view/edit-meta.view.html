@@ -1,15 +1,5 @@
 <div class="top-bar clearfix">
 
-    <!--
-    <button md-raised-button
-            [routerLink]="['/Selector/FileTable', {'path': selectedPath}]"
-            color="primary"
-            class="back-button pull-left">
-            <i class="material-icons button-icon">arrow_backward</i>
-            Back
-    </button>
-    -->
-
     <div class="help-text pull-left">
         Select a narrative, edit the associated meta data, and import.
     </div>
@@ -29,7 +19,8 @@
 
     <div class="pull-right">
         <div class="check-counter">
-            {{selectedCount}} selected
+            {{selectedCount || selectedSetCount}}
+            {{selectedCount ? 'selected' : (selectedSetCount > 1 ? 'sets' : 'set') }}
             <!--<span *ngIf="selectedCount">
                 (<a (click)="clearSelected()">clear</a>)
             </span>-->
@@ -37,7 +28,7 @@
 
         <button md-raised-button
             (click)="startImport()"
-            [disabled]="!selectedCount || importInProgress"
+            [disabled]="!(selectedCount || selectedSetCount) || importInProgress"
             color="primary">
             {{importInProgress ? 'Submitting...' : 'Start Import'}}
         </button>
@@ -49,9 +40,9 @@
     <table class="edit-sheet">
         <thead>
             <tr>
-                <th>file name</th>
+                <th>File Name</th>
 
-                <th *ngFor="let spec of exampleSpec">{{spec.name}}</th>
+                <th *ngFor="let spec of importSpec">{{spec.name}}</th>
             </tr>
         </thead>
         <tbody>
@@ -60,11 +51,18 @@
                     {{file.name}}
                 </td>
 
-                <td *ngFor="let spec of exampleSpec"
+                <td *ngFor="let col of importSpec"
                     (mousedown)="selectCell($event)"
                     (mouseup)="mouseUp($event)"
-                    (mouseover)="cellSelection && mouseOver($event)">
-                    <input [(ngModel)]="file.meta[spec.prop]">
+                    (mouseover)="cellSelection && mouseOver($event)"
+                    [ngClass]="{'text-center': col.type == 'checkbox'}">
+
+                    <md-checkbox *ngIf="col.type == 'checkbox'"
+                                [checked]="file.meta[col.prop]"
+                                (change)="file.meta[col.prop] = $event">
+                    </md-checkbox>
+
+                    <input *ngIf="!col.type || col.type == 'wsObject'" [(ngModel)]="file.meta[col.prop]">
                 </td>
             </tr>
         </tbody>
@@ -73,9 +71,8 @@
 </card>
 
 <card *ngIf="!files.length">
-    There are no selected files.  Select some <a [routerLink]="['/Selector/FileTable', {path: ''}]">here</a>.
+    There are no selected files.  Select some <a [routerLink]="['/browse', user]">here</a>.
 </card>
-
 
 <!--
 <ul *ngFor="let file of files">
