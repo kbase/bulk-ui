@@ -18,20 +18,20 @@
         <tr>
             <th *ngIf="selectedType">
                 <md-checkbox *ngIf="files"
-                             [checked]="allChecked"
-                             (click)="toggleCheckAll($event)"
-                             aria-label="Select all">
+                            [checked]="allChecked"
+                            (click)="toggleCheckAll($event)"
+                            aria-label="Select all">
                 </md-checkbox>
             </th>
             <th><!--icon--></th>
             <th>Name</th>
             <th>Size</th>
             <th>Mod Time</th>
-            <!--<th>Type</th>-->
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let file of table.data">  <!--  [ngClass]="{disabled: (selectedType.allowedType == 'folder' && !file.isFolder) || (selectedType.allowedType == 'file' && file.isFolder)}"-->
+        <tr *ngFor="let file of table.data">
+            <!--  [ngClass]="{disabled: (selectedType.allowedType == 'folder' && !file.isFolder) || (selectedType.allowedType == 'file' && file.isFolder)}"-->
             <td *ngIf="selectedType" class="tiny-col">
                 <md-checkbox
                     *ngIf="!file.isFolder"
@@ -53,8 +53,16 @@
                 </span>
             </td>
             <td>{{readableSize(file.size)}}</td>
-            <td>{{relativeTime(file.mtime)}}</td>
-            <!--<td>{{file.kbaseType ? file.kbaseType : '-'}}</td>-->
+            <td>
+                <span *ngIf="file.uploadProgress">
+                    <progress-bar>
+                        <div [style.width]="file.uploadProgress+'%'"></div>
+                    </progress-bar>
+                </span>
+                <span *ngIf="!file.uploadProgress" >
+                    {{file.mtime ? relativeTime(file.mtime) : 'starting upload...'}}
+                </span>
+            </td>
         </tr>
     </tbody>
 

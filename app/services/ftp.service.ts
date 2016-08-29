@@ -65,8 +65,8 @@ export class FtpService {
                     else files.push(file);
                 })
                 // crud sorting, for now
-                folders.sort((a, b) => {return a.mtime - b.mtime; })
-                files.sort((a, b) => { return a.mtime - b.mtime; })
+                folders.sort((a, b) => { return b.mtime - a.mtime; })
+                files.sort((a, b) => { return b.mtime - a.mtime; })
 
                 return folders.concat(files);
             })
@@ -81,6 +81,24 @@ export class FtpService {
     getPath() {
         return this.selectedPath;
     }
+
+    addToCache(files, path) {
+        let existing = this.files[path];
+        // remove any existing from model
+        files.forEach(f => {
+            let i = existing.length
+            while(i--) {
+                if (existing[i].name === f.name)
+                    existing.splice(i, 1)
+            }
+        })
+
+        // throw at top for now (until angular table is complete)
+        this.files[path] = files.concat(existing);
+        return this.files[path];
+    }
+
+
 
     selectFile(file) {
         this.selectedFiles.push(file);
@@ -109,6 +127,7 @@ export class FtpService {
         this.selectedFileCount.next(0);
     }
 
+
     clearSelected() {
         this.selectedFiles = [];
         this.selectedFileCount.next(0);
@@ -119,22 +138,5 @@ export class FtpService {
         return Observable.throw(error.json().error || 'Server error');
     }
 
-
-    /*
-    // add kbase type
-    let r = res.json()
-    r.forEach(file => {
-        if (file.isFolder) return;
-
-        let ext = file.name.slice(file.name.lastIndexOf('.')+1);
-
-        if (ext in this.types)
-            file.kbaseType = this.types[ext];
-    })
-
-    types = {
-        'gbk': 'genome'
-    }
-    */
 
 }
