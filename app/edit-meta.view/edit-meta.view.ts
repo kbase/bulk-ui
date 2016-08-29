@@ -9,7 +9,7 @@ import { WorkspaceService } from '../services/workspace.service';
 
 import { MdButton } from '@angular2-material/button';
 //import { MdRipple } from '@angular2-material/core/core';
-import { Util } from '../services/util';
+import { ElapsedTime } from '../services/pipes';
 
 
 @Component({
@@ -24,6 +24,9 @@ import { Util } from '../services/util';
         ROUTER_DIRECTIVES,
         MdButton,
         //MdRipple
+    ],
+    pipes: [
+        ElapsedTime
     ]
 })
 
@@ -40,11 +43,8 @@ export class EditMetaView implements OnInit {
     selectedNarrative;
     selectedType;
 
-
     importInProgress: boolean = false;
 
-    util = new Util();
-    relativeTime = this.util.relativeTime; // use pipes
 
     genomeSpec = [{
         name: 'Import Name',

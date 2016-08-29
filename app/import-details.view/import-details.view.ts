@@ -6,7 +6,7 @@ import { MdProgressCircle } from '@angular2-material/progress-circle';
 import { Observable } from 'rxjs/Rx';
 
 import { JobService } from '../services/job.service';
-import { Util } from '../services/util';
+import { ElapsedTime } from '../services/pipes';
 
 @Component({
     templateUrl: 'app/import-details.view/import-details.view.html',
@@ -17,6 +17,9 @@ import { Util } from '../services/util';
     directives: [
         MdProgressCircle,
         ROUTER_DIRECTIVES
+    ],
+    pipes: [
+        ElapsedTime
     ]
 })
 
@@ -25,9 +28,6 @@ export class ImportDetailsView implements OnInit {
     id: string;
     loading: boolean = false;
     jobs;
-
-    util = new Util();
-    relativeTime = this.util.relativeTime; // use pipes
 
     constructor(route: ActivatedRoute, private jobService: JobService) {
         route.params.subscribe(params => this.id = params['id'] )

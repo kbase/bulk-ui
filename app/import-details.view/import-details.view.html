@@ -23,9 +23,9 @@
                 <td>{{job.awe_job_id.split('-')[0]+'...'}}</td>
                 <td>{{job.job_state}}</td>
 
-                <td>{{relativeTime(job.creation_time)}}</td>
-                <td>{{relativeTime(job.exec_start_time)}}</td>
-                <td>{{relativeTime(job.finish_time)}}</td>
+                <td>{{job.creation_time | elapsedTime}}</td>
+                <td>{{job.exec_start_time | elapsedTime}}</td>
+                <td>{{job.finish_time | elapsedTime}}</td>
                 <td><a [routerLink]="['/job-log', job.job_id]">view log</a></td>
             </tr>
         </tbody>

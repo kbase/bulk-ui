@@ -52,7 +52,7 @@
                     {{file.name}}
                 </span>
             </td>
-            <td>{{readableSize(file.size)}}</td>
+            <td>{{file.size | readableSize}}</td>
             <td>
                 <span *ngIf="file.uploadProgress">
                     <progress-bar>
@@ -60,7 +60,7 @@
                     </progress-bar>
                 </span>
                 <span *ngIf="!file.uploadProgress" >
-                    {{file.mtime ? relativeTime(file.mtime) : 'starting upload...'}}
+                    {{file.mtime ? (file.mtime|elapsedTime)  : 'starting upload...'}}
                 </span>
             </td>
         </tr>

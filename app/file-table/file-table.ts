@@ -12,7 +12,7 @@ import { DataTableService } from '../grid/dataTable.service';
 import { FtpService } from '../services/ftp.service';
 
 import { Util } from '../services/util';
-import { Encode } from '../services/pipes';
+import { Encode, ElapsedTime, ReadableSize} from '../services/pipes';
 
 import { config } from '../service-config';
 import { KBaseAuth } from '../services/kbase-auth.service';
@@ -34,29 +34,28 @@ import { KBaseAuth } from '../services/kbase-auth.service';
         DataTable,
         DataTableService
     ],
-    pipes: [Encode]
+    pipes: [
+        Encode,
+        ElapsedTime,
+        ReadableSize
+    ]
 })
 
 export class FileTableComponent implements OnInit {
     files;                          // list of file meta
     path;
     pathList = [];                  // list of folder names
-    allowedType: string;            // Once user selects a file of one type,
-                                    // others are filtered out.?  to be removed
     error;
-
-    selectedType;                          // selected type to upload
-
+    selectedType;                   // selected type to upload
     allChecked: boolean = false;    // wether or not all items are checked
-
     selectedFiles;
     selectedCount;
 
     dndZone;
 
-    util = new Util();
-    relativeTime = this.util.relativeTime; // use pipes
-    readableSize = this.util.readableSize; // use pipes
+    //util = new Util();
+    //relativeTime = this.util.relativeTime; // use pipes
+    //readableSize = this.util.readableSize; // use pipes
 
     constructor(private router: ActivatedRoute,
                 private ftp: FtpService,

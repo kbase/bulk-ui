@@ -11,6 +11,7 @@ import { MdButton } from '@angular2-material/button';
 import { Observable } from 'rxjs/Rx';
 
 import { Util } from '../services/util';
+import { ElapsedTime } from '../services/pipes';
 import { config } from '../service-config';
 
 @Component({
@@ -25,7 +26,11 @@ import { config } from '../service-config';
     providers: [
         JobService,
         WorkspaceService,
-        Location
+        Location,
+        Util
+    ],
+    pipes: [
+        ElapsedTime
     ]
 })
 export class StatusView {
@@ -37,12 +42,11 @@ export class StatusView {
     errorMessage;
     jobStatusByImportId = {};
 
-    util = new Util();
-    relativeTime = this.util.relativeTime; // use pipes
 
     constructor(private jobService: JobService,
                 private wsService: WorkspaceService,
-                private _location: Location) { }
+                private _location: Location,
+                private util: Util) {}
 
 
     ngOnInit() {
@@ -137,7 +141,7 @@ export class StatusView {
 
     getRelativeTime(time) {
         let timestamp = Date.parse(time);
-        return this.relativeTime(timestamp);
+        return new ElapsedTime().transform(timestamp);
     }
 
     // special helper to simplify template of "Status" column
