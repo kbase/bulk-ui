@@ -1,19 +1,5 @@
-<nav class="left-side-nav">
-    <a (click)="toggleSidenav()" class="no-link pointer hover">
-        <!--<i *ngIf="sidenav.opened" class="material-icons sidenav-caret">arrow_left</i>-->
-        <i class="material-icons icon-menu">menu</i>
-    </a>
-
-</nav>
-
-<logo>
-    <a href="http://kbase.us">
-        <img src="https://narrative.kbase.us/modules/plugins/mainwindow/resources/images/kbase_logo.png">
-    </a>
-</logo>
-
+<nav>
 <span class="nav-btns">
-    <a [routerLink]="['/intro']" class="app-name">Bulk Importer</a>
 
     <button md-button [routerLink]="['/browse', user]" class="nav-btn">
         <i class="material-icons">folder_open</i><bR>
@@ -26,11 +12,4 @@
     </button>
 </span>
 
-<nav class="right-side-nav">
-    <a [routerLink]="['/about']">
-        About
-    </a>
-    <a href="https://narrative.kbase.us/#login">
-        <i class="material-icons">person</i> {{user}}
-    </a>
 </nav>
