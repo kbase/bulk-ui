@@ -107,6 +107,8 @@ export class EditMetaView implements OnInit {
             this.importSpec = this.singleReadsSpec;
         else if (this.selectedType == 'Paired-end Reads')
             this.importSpec = this.pairedReadsSpec;
+        else if (this.selectedType == 'Interleaved Paired-end Reads')
+	    this.importSpec = this.singleReadsSpec;
 
 
         this.preprocessData(this.selectedType);
@@ -144,6 +146,12 @@ export class EditMetaView implements OnInit {
                     console.log('reads import jobIds', ids);
                     this.createBulkJob(ids, wsId, narId)
                 })
+        } else if (type === "Interleaved Paired-end Reads") {
+            this.jobService.runReadsImports(this.files, wsName)
+                .subscribe(ids => {
+                    console.log('reads import jobIds', ids);
+                    this.createBulkJob(ids, wsId, narId)
+                })
         } else if (type === "Paired-end Reads") {
             this.jobService.runReadsImports(this.files, wsName)
                 .subscribe(ids => {
@@ -172,6 +180,8 @@ export class EditMetaView implements OnInit {
         else if (type == "Paired-end Reads")
             this.preprocessPairedReads();
         else if (type == "Single-end Reads")
+            this.preprocessSingleReads();
+        else if (type == "Interleaved Paired-end Reads")
             this.preprocessSingleReads();
     }
 
