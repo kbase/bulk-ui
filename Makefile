@@ -19,7 +19,7 @@ KB_TOP			= /kb
 config			= dev
 directory		= build
 
-default: init build
+default: init 
 # Initialization here pulls in all dependencies from Bower and NPM.
 # This is **REQUIRED** before any build process can proceed.
 # bower install is not part of the build process, since the bower
@@ -28,11 +28,6 @@ init:
 	@echo "> Initialiing the repo for work."
 	npm install
 	
-# Perform the build. Build scnearios are supported through the config option
-# which is passed in like "make build config=ci"
-build:	
-	@echo "> Building."
-	cd mutations; node build $(config)
 
 # Eventually, if docs need to be built, the process will go here.
 docs: init
