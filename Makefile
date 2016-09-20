@@ -19,7 +19,7 @@ KB_TOP			= /kb
 config			= dev
 directory		= build
 
-default: init 
+default: init deploy
 # Initialization here pulls in all dependencies from Bower and NPM.
 # This is **REQUIRED** before any build process can proceed.
 # bower install is not part of the build process, since the bower
@@ -27,6 +27,9 @@ default: init
 init:
 	@echo "> Initialiing the repo for work."
 	npm install
+	
+deploy:
+	@echo "> Deploy handled by deploy tools."
 	
 
 # Eventually, if docs need to be built, the process will go here.
