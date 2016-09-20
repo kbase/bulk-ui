@@ -46,7 +46,8 @@ export class SelectorView implements OnInit {
 
     types = [{name: 'Genomes',  allowedType: 'file'},
         {name: 'Single-end Reads', allowedType: 'file'},
-        {name: 'Paired-end Reads', allowedType: 'file', setsAllowed: true}
+        {name: 'Paired-end Reads', allowedType: 'file', setsAllowed: true},
+        {name: 'Interleaved Paired-end Reads', allowedType: 'file'}
     ]
 
     constructor(

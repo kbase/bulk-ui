@@ -26,6 +26,10 @@
         Next, add 2 paired-end reads at a time.
     </div>
 
+    <div class="help-text" *ngIf="selectedType.name == 'Interleaved Paired-end Reads'" >
+        Next, select Interleaved Paired-end reads from below to import.
+    </div>
+
 
     <select (change)="onSelectType($event.target.value)" class="type-selector">
         <option selected disabled>Choose import type...</option>

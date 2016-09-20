@@ -40,7 +40,8 @@ npm start
 
 ## Author(s)
 
-Neal Conrad <nconrad@anl.gov>
+* Neal Conrad <nconrad@anl.gov>
+* Daniel Murphy-Olson <d@anl.gov>
 
 
 ## License
