@@ -8,7 +8,6 @@ import { JobService } from '../services/job.service';
 import { WorkspaceService } from '../services/workspace.service';
 
 import { MdButton } from '@angular2-material/button';
-//import { MdRipple } from '@angular2-material/core/core';
 import { ElapsedTime } from '../services/pipes';
 
 
@@ -23,7 +22,6 @@ import { ElapsedTime } from '../services/pipes';
     directives: [
         ROUTER_DIRECTIVES,
         MdButton,
-        //MdRipple
     ],
     pipes: [
         ElapsedTime
@@ -241,29 +239,5 @@ export class EditMetaView implements OnInit {
         console.log('rows', rows)
         this.files = rows;
     }
-
-
-    showData() {
-        console.log('data to save', this.files)
-    }
-
-    selectCell(e) {
-        this.cellSelection = true;
-        console.log('event', e, this.cellSelection)
-
-    }
-
-    mouseUp(e) {
-        this.cellSelection = false;
-        console.log('event', e, this.cellSelection)
-    }
-
-    mouseOver(e) {
-        console.log('e', e);
-        //this.renderer.setElementClass(e.fromElement, 'selected', true);
-        //this.renderer.setElementClass(e.target, 'selected', true);
-    }
-
-
 
 }

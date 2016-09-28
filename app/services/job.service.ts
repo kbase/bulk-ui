@@ -55,10 +55,10 @@ export class JobService {
             method: "genome_transform.reads_to_assembly",
             service_ver: 'dev',
             params: [{
-                workspace : workspace,              //'janakakbase:1464032798535',
-                reads_id:  f.meta.importName,       //'TestFrag',
+                workspace : workspace,
+                reads_id:  f.meta.importName,
                 reads_type: f['paths'] ? 'PairedEndLibrary' : 'SingleEndLibrary',
-                file_path_list: f['paths'] ? f['paths'] : [this.ftpRoot+f.path],   //["/kb/module/data/frag_1.fastq","/kb/module/data/frag_2.fastq"],
+                file_path_list: f['paths'] ? f['paths'] : [this.ftpRoot+f.path],
                 insert_size: f.meta['insert_size'],
                 std_dev: f.meta['std_dev'],
                 sra: f.meta['sra'] ? "1" : "0"  // expects strings instead of booleans
@@ -119,21 +119,6 @@ export class JobService {
         var reqs = [];
         jobIds.forEach(id => reqs.push( this.deleteJob(id) ) )
         return Observable.forkJoin(reqs)
-    }
-
-    /**
-     *  Unused methods
-     */
-    setState(jobId: string){
-        return this.rpc.call('ujs', 'set_state', ['bulkupload', jobId, ''], true)
-    }
-
-    listState() {
-        return this.rpc.call('ujs', 'list_state', ['bulkupload', 0], true)
-    }
-
-    getJobParams(jobId: string) {
-        return this.rpc.call('njs', 'get_job_params', [jobId], true)
     }
 
 }
