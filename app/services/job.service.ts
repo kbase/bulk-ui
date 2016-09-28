@@ -52,7 +52,8 @@ export class JobService {
     runReadsImport(f: File,  workspace: string) {
         console.log('file', f)
         let params = {
-            method: "genome_transform.reads_to_assembly",
+            method: 'genome_transform.' +
+                (f.meta['sra'] ? 'sra_reads_to_assembly' : 'reads_to_assembly'),
             service_ver: 'dev',
             params: [{
                 workspace : workspace,
@@ -60,8 +61,7 @@ export class JobService {
                 reads_type: f['paths'] ? 'PairedEndLibrary' : 'SingleEndLibrary',
                 file_path_list: f['paths'] ? f['paths'] : [this.ftpRoot+f.path],
                 insert_size: f.meta['insert_size'],
-                std_dev: f.meta['std_dev'],
-                sra: f.meta['sra'] ? "1" : "0"  // expects strings instead of booleans
+                std_dev: f.meta['std_dev']
             }]
         }
 
