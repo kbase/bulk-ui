@@ -1,7 +1,8 @@
 
 # KBase Bulk UI (under dev)
 
-This is a prototype bulk import UI for KBase.  The API consumed is in progress at https://github.com/nconrad/kb-ftp-api.
+This is a prototype bulk import UI for KBase.
+The API consumed is in progress at https://github.com/kbase/kb-ftp-api.
 
 
 ## Requirements
@@ -12,7 +13,7 @@ node
 ## Local Installation
 
 ```
-git clone https://github.com/nconrad/bulk-ui.git
+git clone https://github.com/kbase/bulk-ui.git
 cd bulk-ui
 npm install
 ```
@@ -38,12 +39,12 @@ npm start
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request
 
-## Author(s)
+## Authors
 
-* Neal Conrad <nconrad@anl.gov>
 * Daniel Murphy-Olson <d@anl.gov>
+* Neal Conrad <nconrad@anl.gov>
 
 
 ## License
 
-Released under [the MIT license](https://github.com/nconrad/bulk-ui/blob/master/LICENSE).
+Released under [the MIT license](https://github.com/kbase/bulk-ui/blob/master/LICENSE).
