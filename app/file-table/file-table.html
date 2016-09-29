@@ -30,11 +30,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let file of table.data">
-            <!--  [ngClass]="{disabled: (selectedType.allowedType == 'folder' && !file.isFolder) || (selectedType.allowedType == 'file' && file.isFolder)}"-->
+        <tr *ngFor="let file of table.data"
+            [ngClass]="{disabled: file.name.substr(file.name.length - 5) == '.part'}">
             <td *ngIf="selectedType" class="tiny-col">
                 <md-checkbox
-                    *ngIf="!file.isFolder"
+                    *ngIf="!file.isFolder && file.name.substr(file.name.length - 5) != '.part'"
                     [checked]="file.checked || allChecked"
                     (change)="toggleItem($event, file)">
                 </md-checkbox>
